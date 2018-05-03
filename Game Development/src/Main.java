@@ -17,5 +17,6 @@ public class Main {
 		System.out.println("Enemy has attacked!");
 		enemy = new Enemy();
 		enemy.doda();
+		enemy.attack();
 	}
 }
