@@ -4,11 +4,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.net.URL;
 
 import javax.swing.JFrame;
 
 public class Main extends JFrame implements Runnable{
-	
 	public boolean isRunning;
 	private int ticks;
 	private int frames;
@@ -39,6 +40,8 @@ public class Main extends JFrame implements Runnable{
 		setResizable(false);
 		setVisible(true);
 		isRunning = true;
+		File filename = new File("startbtn.png");
+		System.out.println(filename.getPath());
 		
 	//Canvas
 	//The canvas is what the graphics are "drawn" on
