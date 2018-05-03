@@ -36,9 +36,6 @@ public class Main extends JFrame implements Runnable{
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
-		//setSize(windowWidth, windowHeight);
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
 		isRunning = true;
@@ -56,10 +53,12 @@ public class Main extends JFrame implements Runnable{
 		menuState = new MenuState(this);
 	}
 	
+	//Updates variables, sets positions (numbers stuff)
 	public void update() {
 		menuState.update();
 	}
 	
+	//Draws the graphics
 	public void render() {
 		   bufferStrategy = canvas.getBufferStrategy();
 		   if(bufferStrategy == null){
@@ -68,7 +67,7 @@ public class Main extends JFrame implements Runnable{
 		   }
 		   g = bufferStrategy.getDrawGraphics();
 		   //Clears the screen
-		   //g.clearRect(0, 0, windowWidth, windowHeight);
+		   g.clearRect(0, 0, windowWidth, windowHeight);
 		   
 		   //Displays the images
 		   
@@ -84,7 +83,7 @@ public class Main extends JFrame implements Runnable{
 		initialize();
 		long fpsTimer = System.currentTimeMillis();
 		
-		while(isRunning) {
+		while(isRunning) { // updates, 
 			long firstTime = System.currentTimeMillis(); 
             ticks++;
             update(); 

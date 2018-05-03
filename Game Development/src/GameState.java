@@ -1,10 +1,9 @@
 import java.awt.Graphics;
 
-public class MenuState extends State{
-	
+public class GameState extends State {
 	Main main;
 	
-	public MenuState(Main main) {
+	public GameState(Main main) {
 		super(main);
 	}
 	
@@ -15,5 +14,4 @@ public class MenuState extends State{
 	public void render(Graphics g) {
 		
 	}
-	
 }
