@@ -36,6 +36,9 @@ public class Main extends JFrame implements Runnable{
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
+		//setSize(windowWidth, windowHeight);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
 		isRunning = true;
@@ -65,7 +68,7 @@ public class Main extends JFrame implements Runnable{
 		   }
 		   g = bufferStrategy.getDrawGraphics();
 		   //Clears the screen
-		   g.clearRect(0, 0, windowWidth, windowHeight);
+		   //g.clearRect(0, 0, windowWidth, windowHeight);
 		   
 		   //Displays the images
 		   
