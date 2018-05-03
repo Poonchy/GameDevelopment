@@ -1,6 +1,8 @@
 
 import java.awt.Canvas;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -12,8 +14,9 @@ public class Main extends JFrame implements Runnable{
 	private int frames;
 	private int fps = 60;
 	private long fpsTimer;
-	private int windowWidth = 1080;
-	private int windowHeight = 720;
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private int windowWidth = (int) screenSize.getWidth();
+	private int windowHeight = (int) screenSize.getHeight();
 	private Canvas canvas = new Canvas();
 	private BufferStrategy bufferStrategy;
 	private Graphics g;
@@ -30,12 +33,22 @@ public class Main extends JFrame implements Runnable{
 	public void initialize() {
 	//Window stuff
 		setTitle("Some Game Thing"); 
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setResizable(false);
 		setVisible(true);
 		isRunning = true;
+		
+	//Canvas
+	//The canvas is what the graphics are "drawn" on
+		canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+		canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
+		canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
+		canvas.setFocusable(false);
+		add(canvas);
+		pack();
+		
 	//States
 		menuState = new MenuState(this);
 	}
