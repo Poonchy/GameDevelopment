@@ -1,5 +1,6 @@
 
 import java.awt.Canvas;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -30,11 +31,22 @@ public class Main extends JFrame implements Runnable{
 	public void initialize() {
 	//Window stuff
 		setTitle("Some Game Thing"); 
-		setSize(windowWidth, windowHeight);  
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setUndecorated(true);
 		setResizable(false);
 		setVisible(true);
 		isRunning = true;
+		
+	//Canvas
+	//The canvas is what the graphics are "drawn" on
+		canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+		canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
+		canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
+		canvas.setFocusable(false);
+		add(canvas);
+		pack();
+		
 	//States
 		menuState = new MenuState(this);
 	}
