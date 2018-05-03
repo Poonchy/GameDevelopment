@@ -31,16 +31,17 @@ public class Main extends JFrame implements Runnable{
 	public void initialize() {
 	//Window stuff
 		setTitle("Some Game Thing"); 
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
+		//setSize(windowWidth, windowHeight);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
 		isRunning = true;
 		
 	//Canvas
 	//The canvas is what the graphics are "drawn" on
-		canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+		canvas.setPreferredSize(new Dimension(System.getProperties()));
 		canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setFocusable(false);
@@ -63,7 +64,7 @@ public class Main extends JFrame implements Runnable{
 		   }
 		   g = bufferStrategy.getDrawGraphics();
 		   //Clears the screen
-		   g.clearRect(0, 0, windowWidth, windowHeight);
+		   //g.clearRect(0, 0, windowWidth, windowHeight);
 		   
 		   //Displays the images
 		   
