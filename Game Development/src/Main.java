@@ -7,5 +7,10 @@ public class Main {
 		System.out.println("Programming robot... beep boop!");
 		//System.out.println("This is called merging!");
 		//Commenting is fun, so much fun!
+		System.out.println("It shouldn't be thIS                      As bad...");
+		/* System.out.println("Yes. It shouldn't...");
+		System.out.println("Programming robot... beep   boop!");
+		System.out.println("This is called merging!"); */
+		//Testing thing
 	}
 }
