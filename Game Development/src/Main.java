@@ -7,5 +7,4 @@ public class Main {
 		System.out.println("Programming robot... beep boop!");
 		System.out.println("This is called merging!");
 	}
-	
 }
