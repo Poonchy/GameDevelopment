@@ -5,16 +5,18 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.io.File;
-import java.net.URL;
 
 import javax.swing.JFrame;
 
 public class Main extends JFrame implements Runnable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8234134890401296256L;
 	public boolean isRunning;
 	private int ticks;
 	private int frames;
 	private int fps = 60;
-	private long fpsTimer;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int windowWidth = (int) screenSize.getWidth();
 	private int windowHeight = (int) screenSize.getHeight();

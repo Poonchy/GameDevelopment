@@ -1,9 +1,6 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MenuState extends State{
 	
