@@ -1,10 +1,12 @@
 
 import java.awt.Canvas;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 
 import javax.swing.JFrame;
 
@@ -42,8 +44,11 @@ public class Main extends JFrame implements Runnable{
 		setResizable(false);
 		setVisible(true);
 		isRunning = true;
-		File filename = new File("startbtn.png");
-		System.out.println(filename.getPath());
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Image cursorImage = ImageLoader.loadImage("/res/textures/reticle.png");
+		Point cursorHotSpot = new Point(0,0);
+		Cursor customCursor = toolkit.createCustomCursor(cursorImage, cursorHotSpot, "Cursor");
+		setCursor(customCursor);
 		
 	//Canvas
 	//The canvas is what the graphics are "drawn" on
