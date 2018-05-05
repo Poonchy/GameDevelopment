@@ -42,7 +42,10 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		System.out.println("Hello!");
+		
+		/*
 		if(arg0.getButton() == MouseEvent.BUTTON1) {
 			for(Button button : ArrayList buttonList) {
 				if(inside area of any button) {
@@ -50,7 +53,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 				}
 			}
 		}
-		
+		*/
 		
 	}
 

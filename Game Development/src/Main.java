@@ -26,8 +26,11 @@ public class Main extends JFrame implements Runnable{
 	private BufferStrategy bufferStrategy;
 	private Graphics g;
 	
-	//
+	//States
 	MenuState menuState;
+	
+	//Peripherals
+	MouseTracker mouseTracker;
 	
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -61,6 +64,15 @@ public class Main extends JFrame implements Runnable{
 		
 	//States
 		menuState = new MenuState(this);
+		
+	//Peripherals
+		mouseTracker = new MouseTracker();
+		
+	//Listeners
+		addMouseListener(mouseTracker);
+	    addMouseMotionListener(mouseTracker);
+	    canvas.addMouseListener(mouseTracker); //add mouse listeners to both jframe and canvas so whichever is active or focused mouse will still be tracked
+	    canvas.addMouseMotionListener(mouseTracker);
 	}
 	
 	//Updates variables, sets positions (numbers stuff)
