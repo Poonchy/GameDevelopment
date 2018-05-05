@@ -26,11 +26,11 @@ public class Main extends JFrame implements Runnable{
 	private BufferStrategy bufferStrategy;
 	private Graphics g;
 	
-	//
+	//States
 	MenuState menuState;
 	
-	//peripherals
-	MouseTracker MouseTracker;
+	//Peripherals
+	MouseTracker mouseTracker;
 	
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -40,7 +40,7 @@ public class Main extends JFrame implements Runnable{
 	
 	public void initialize() {
 	//peripherals
-			MouseTracker = new MouseTracker();
+		mouseTracker = new MouseTracker();
 				
 	//Window stuff
 		setTitle("Some Game Thing"); 
@@ -55,8 +55,8 @@ public class Main extends JFrame implements Runnable{
 		Point cursorHotSpot = new Point(15,15);
 		Cursor customCursor = toolkit.createCustomCursor(cursorImage, cursorHotSpot, "Cursor");
 		setCursor(customCursor);
-		addMouseListener(MouseTracker);
-		addMouseMotionListener(MouseTracker);
+		addMouseListener(mouseTracker);
+		addMouseMotionListener(mouseTracker);
 		
 	//Canvas
 	//The canvas is what the graphics are "drawn" on
@@ -64,14 +64,22 @@ public class Main extends JFrame implements Runnable{
 		canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setFocusable(false);
-		canvas.addMouseListener(MouseTracker);
-		canvas.addMouseMotionListener(MouseTracker);
+		canvas.addMouseListener(mouseTracker);
+		canvas.addMouseMotionListener(mouseTracker);
 		add(canvas);
 		pack();
 		
 	//States
 		menuState = new MenuState(this);
+
+	//Peripherals
+		mouseTracker = new MouseTracker();
 		
+	//Listeners
+		addMouseListener(mouseTracker);
+	    addMouseMotionListener(mouseTracker);
+	    canvas.addMouseListener(mouseTracker); //add mouse listeners to both jframe and canvas so whichever is active or focused mouse will still be tracked
+	    canvas.addMouseMotionListener(mouseTracker);
 	}
 	
 	//Updates variables, sets positions (numbers stuff)
