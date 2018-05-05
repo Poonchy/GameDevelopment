@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Button{
@@ -14,5 +15,9 @@ public class Button{
 		xPoS = xPoSt;
 		yPoS = yPoSt;
 		imagepath = image;
+	}
+	
+	public void render(Graphics g) {
+		
 	}
 }
