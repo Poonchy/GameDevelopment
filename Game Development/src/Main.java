@@ -29,6 +29,9 @@ public class Main extends JFrame implements Runnable{
 	//
 	MenuState menuState;
 	
+	//peripherals
+	MouseTracker MouseTracker;
+	
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.run();
@@ -36,6 +39,9 @@ public class Main extends JFrame implements Runnable{
 	}
 	
 	public void initialize() {
+	//peripherals
+			MouseTracker = new MouseTracker();
+				
 	//Window stuff
 		setTitle("Some Game Thing"); 
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -46,9 +52,11 @@ public class Main extends JFrame implements Runnable{
 		isRunning = true;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image cursorImage = ImageLoader.loadImage("/res/textures/reticle.png");
-		Point cursorHotSpot = new Point(0,0);
+		Point cursorHotSpot = new Point(15,15);
 		Cursor customCursor = toolkit.createCustomCursor(cursorImage, cursorHotSpot, "Cursor");
 		setCursor(customCursor);
+		addMouseListener(MouseTracker);
+		addMouseMotionListener(MouseTracker);
 		
 	//Canvas
 	//The canvas is what the graphics are "drawn" on
@@ -56,11 +64,14 @@ public class Main extends JFrame implements Runnable{
 		canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setFocusable(false);
+		canvas.addMouseListener(MouseTracker);
+		canvas.addMouseMotionListener(MouseTracker);
 		add(canvas);
 		pack();
 		
 	//States
 		menuState = new MenuState(this);
+		
 	}
 	
 	//Updates variables, sets positions (numbers stuff)
