@@ -39,8 +39,6 @@ public class Main extends JFrame implements Runnable{
 	}
 	
 	public void initialize() {
-	//peripherals
-		mouseTracker = new MouseTracker();
 				
 	//Window stuff
 		setTitle("Some Game Thing"); 
@@ -71,8 +69,8 @@ public class Main extends JFrame implements Runnable{
 		
 	//States
 		menuState = new MenuState(this);
-
-	//Peripherals
+		
+	//peripherals
 		mouseTracker = new MouseTracker();
 		
 	//Listeners

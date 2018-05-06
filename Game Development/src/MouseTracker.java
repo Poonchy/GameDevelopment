@@ -5,12 +5,12 @@ import java.awt.event.MouseMotionListener;
 public class MouseTracker implements MouseListener, MouseMotionListener{
 	
 	private boolean clickedWithinBounds(Button button, MouseEvent arg) {
-		System.out.println(arg.getX());
-		System.out.println(arg.getY());
-		if(arg.getX() >= button.xPos 
-				&& arg.getY()  >= button.yPos 
-				&& arg.getX()  <= (button.xPos + button.width) 
-				&& arg.getY()  <= (button.yPos + button.height))
+		
+		if(
+			   arg.getX() >= button.xPos 
+			&& arg.getY()  >= button.yPos 
+			&& arg.getX()  <= (button.xPos + button.width) 
+			&& arg.getY()  <= (button.yPos + button.height))
 				{
 					return true;
 				}
