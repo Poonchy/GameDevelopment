@@ -5,7 +5,8 @@ import java.awt.event.MouseMotionListener;
 public class MouseTracker implements MouseListener, MouseMotionListener{
 	
 	private boolean clickedWithinBounds(Button button, MouseEvent arg) {
-		
+		System.out.println(arg.getX());
+		System.out.println(arg.getY());
 		if(arg.getX() >= button.xPos 
 				&& arg.getY()  >= button.yPos 
 				&& arg.getX()  <= (button.xPos + button.width) 
@@ -19,14 +20,14 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 		if (clickedWithinBounds(MenuState.startbtn, arg0)) {
-			MenuState.startbtn.imagepath = ImageLoader.loadImage("/res/textures/startbtnhover.png");
+			MenuState.startbtn.imagepath = AssetLoader.imgstartbtnhover;
 		} else {
-			MenuState.startbtn.imagepath = ImageLoader.loadImage("/res/textures/startbtn.png");
+			MenuState.startbtn.imagepath = AssetLoader.imgstartbtn;
 		}
 		if (clickedWithinBounds(MenuState.endbtn, arg0)) {
-			MenuState.endbtn.imagepath = ImageLoader.loadImage("/res/textures/endbtnhover.png");
+			MenuState.endbtn.imagepath = AssetLoader.imgendbtnhover;
 		} else {
-			MenuState.endbtn.imagepath = ImageLoader.loadImage("/res/textures/endbtn.png");
+			MenuState.endbtn.imagepath = AssetLoader.imgendbtn;
 		}
 	}
 

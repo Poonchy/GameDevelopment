@@ -13,10 +13,10 @@ public class MenuState extends State{
 	private int btnxoffset = (windowWidth/2) - 100;
 	private int btnyoffset = (windowHeight/2) - 100;
 	
-	public MenuState(Main main) {
+	public MenuState(Main main) { 
 		super(main);
-		startbtn = new Button(200, 80, btnxoffset, btnyoffset, ImageLoader.loadImage("/res/textures/startbtn.png"));
-		endbtn = new Button(200, 80, btnxoffset, btnyoffset + 100, ImageLoader.loadImage("/res/textures/endbtn.png"));
+		startbtn = new Button(200, 80, btnxoffset, btnyoffset, AssetLoader.imgstartbtn);
+		endbtn = new Button(200, 80, btnxoffset, btnyoffset + 100, AssetLoader.imgendbtn);
 	}
 	
 	public void update() {

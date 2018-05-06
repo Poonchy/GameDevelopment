@@ -2,27 +2,30 @@ import java.awt.image.BufferedImage;
 
 public class AssetLoader {
 	
-	
-								//Tiles
-	//public static BufferedImage;
-								//Entities
-								
-								//Buttons
-								
+	static int buttonwidth = 445;
+	static int buttonheight = 179;
+	private static BufferedImage gameUi = ImageLoader.loadImage("res/textures/gameButtons.png");
+	public static BufferedImage imgstartbtn = gameUi.getSubimage(0, buttonheight, buttonwidth, buttonheight);
+	public static BufferedImage imgstartbtnhover = gameUi.getSubimage(buttonwidth, buttonheight, buttonwidth, buttonheight);;
+	public static BufferedImage imgendbtn = gameUi.getSubimage(0, 0, buttonwidth, buttonheight);;
+	public static BufferedImage imgendbtnhover = gameUi.getSubimage(buttonwidth, 0, buttonwidth, buttonheight);;
 	
 	
 	public static void init(){
-		SpriteSheet gameSheet = new SpriteSheet(ImageLoader.loadImage("/textures/GameSheet.png"));
-		SpriteSheet menuSheet= new SpriteSheet(ImageLoader.loadImage("/textures/MenuSheet.png"));
+		/*int buttonwidth = 445;
+		int buttonheight = 179;
+		
+		SpriteSheet gameUI = new SpriteSheet(ImageLoader.loadImage("res/textures/gameButtons.png"));
 		
 		//Tiles
 		
 		//Entities
 		
 		//Buttons
-		
-		
-		
+		imgstartbtn = gameUI.crop(0, buttonheight, buttonwidth, buttonheight);
+		imgstartbtnhover = gameUI.crop(buttonwidth, buttonheight, buttonwidth, buttonheight);
+		imgendbtn = gameUI.crop(0, 0, buttonwidth, buttonheight);
+		imgendbtnhover = gameUI.crop(buttonwidth, 0, buttonwidth, buttonheight); */
 	}
 
 }
