@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
 
 public class MenuState extends State{
 	
@@ -23,6 +25,7 @@ public class MenuState extends State{
 	}
 	
 	public void render(Graphics g) {
+		ArmRotator.drawNewArm(g);
 		g.drawImage(startbtn.imagepath, startbtn.xPos, startbtn.yPos, startbtn.width, startbtn.height, null);
 		g.drawImage(endbtn.imagepath, endbtn.xPos, endbtn.yPos, endbtn.width, endbtn.height, null);
 	}

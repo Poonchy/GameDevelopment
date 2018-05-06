@@ -27,7 +27,8 @@ public class Main extends JFrame implements Runnable{
 	private Graphics g;
 	
 	//States
-	MenuState menuState;
+	static MenuState menuState;
+	static GameState gameState;
 	
 	//Peripherals
 	MouseTracker mouseTracker;
@@ -39,8 +40,6 @@ public class Main extends JFrame implements Runnable{
 	}
 	
 	public void initialize() {
-	//peripherals
-		mouseTracker = new MouseTracker();
 				
 	//Window stuff
 		setTitle("Some Game Thing"); 
@@ -71,6 +70,9 @@ public class Main extends JFrame implements Runnable{
 		
 	//States
 		menuState = new MenuState(this);
+		gameState = new GameState(this);
+		
+		State.setCurrentState(menuState);
 
 	//Peripherals
 		mouseTracker = new MouseTracker();
@@ -84,7 +86,7 @@ public class Main extends JFrame implements Runnable{
 	
 	//Updates variables, sets positions (numbers stuff)
 	public void update() {
-		menuState.update();
+		State.getCurrentState().update();
 	}
 	
 	//Draws the graphics
@@ -100,7 +102,7 @@ public class Main extends JFrame implements Runnable{
 		   
 		   //Displays the images
 		   
-		   menuState.render(g);
+		   State.getCurrentState().render(g);
 		   
 		   //Displays the buffer
 		   bufferStrategy.show();
