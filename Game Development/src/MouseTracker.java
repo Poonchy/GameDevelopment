@@ -4,17 +4,15 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseTracker implements MouseListener, MouseMotionListener{
 	
-	private boolean clickedWithinBounds(Button button, MouseEvent arg) {
-		
-		if(
-			   arg.getX() >= button.xPos 
-			&& arg.getY()  >= button.yPos 
-			&& arg.getX()  <= (button.xPos + button.width) 
-			&& arg.getY()  <= (button.yPos + button.height))
-				{
-					return true;
-				}
-				return false;
+	private boolean clickedWithinBounds(Button button, MouseEvent arg0) {
+		if(((arg0.getX() >= button.xPos)
+			&&(arg0.getX()  <= (button.xPos + button.width)))
+			&&((arg0.getY()  >= button.yPos) 
+			&&(arg0.getY()  <= (button.yPos + button.height)))) 
+		{
+			return true;
+		}
+			return false;
 	}
 
 	@Override
@@ -35,6 +33,9 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	public void mouseClicked(MouseEvent arg0) {
 		if(clickedWithinBounds(MenuState.endbtn, arg0)) {
 			System.exit(0);
+		}
+		if(clickedWithinBounds(MenuState.startbtn, arg0)) {
+			State.setCurrentState(Main.gameState);
 		}
 		
 		

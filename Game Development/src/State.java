@@ -3,7 +3,7 @@ import java.awt.Graphics;
 public abstract class State {
 	
 	Main main;
-	State currentState;
+	static State currentState;
 	
 	public State(Main main) {
 		this.main = main;
@@ -15,12 +15,12 @@ public abstract class State {
 
 	
 	//Getters and Setters
-	public State getCurrentState() {
+	public static State getCurrentState() {
 		return currentState;
 	}
 
-	public void setCurrentState(State currentState) {
-		this.currentState = currentState;
+	public static void setCurrentState(State currentStatet) {
+		currentState = currentStatet;
 	}
 	
 }
