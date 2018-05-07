@@ -32,6 +32,7 @@ public class Main extends JFrame implements Runnable{
 	
 	//Peripherals
 	MouseTracker mouseTracker;
+	KeyTracker keyTracker;
 	
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -59,7 +60,7 @@ public class Main extends JFrame implements Runnable{
 		
 	//Canvas
 	//The canvas is what the graphics are "drawn" on
-		canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+		canvas.setPreferredSize(new Dimension(1000,500));
 		canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setFocusable(false);
@@ -76,10 +77,12 @@ public class Main extends JFrame implements Runnable{
 
 	//Peripherals
 		mouseTracker = new MouseTracker();
+		keyTracker = new KeyTracker();
 		
 	//Listeners
 		addMouseListener(mouseTracker);
 	    addMouseMotionListener(mouseTracker);
+	    addKeyListener(keyTracker);
 	    canvas.addMouseListener(mouseTracker); //add mouse listeners to both jframe and canvas so whichever is active or focused mouse will still be tracked
 	    canvas.addMouseMotionListener(mouseTracker);
 	}

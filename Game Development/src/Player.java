@@ -11,7 +11,6 @@ public class Player extends Creature{
 	@Override
 	public void update() {
 		
-		
 	}
 
 	@Override
