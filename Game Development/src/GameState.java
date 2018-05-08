@@ -1,28 +1,81 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 public class GameState extends State {
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private int windowHeight = (int) screenSize.getHeight();
 	Main main;
+	Player character;
+	int xPos = 10;
+	int yPos = windowHeight - 100;
+	int gunxpos = 10;
+	int gunypos = windowHeight - 100;
+	BufferedImage weapon = ImageLoader.loadImage("res/textures/weapon.png");
+	BufferedImage weaponleft = ImageLoader.loadImage("res/textures/weaponleft.png");
+	BufferedImage gunpic;
+	boolean isJumping = false;
+    int mouseX;
+    BufferedImage leftcapn = ImageLoader.loadImage("res/textures/capnleft.png");
+    BufferedImage capn = ImageLoader.loadImage("res/textures/capn.png");
+    boolean turnedLeft = false;
 	
 	public GameState(Main main) {
 		super(main);
+		character = new Player(main, xPos, yPos, 100, 100, ImageLoader.loadImage("res/textures/capn.png"), 4, 4, -15, 4, 4);
 	}
 	
 	public void update() {
 		if (KeyTracker.wpressed == true) {
-			System.out.println("W held");
+			if (isJumping == false) {
+				isJumping = true;
+			}
 		}
 		if (KeyTracker.apressed == true) {
-			System.out.println("A held");
+			xPos -= character.speed;
+			gunxpos = xPos;
 		}
 		if (KeyTracker.spressed == true) {
-			System.out.println("S held");
 		}
 		if (KeyTracker.dpressed == true) {
-			System.out.println("D held");
+			xPos += character.speed;
+			gunxpos = xPos;
+		}
+		if (isJumping == true) {
+			if (character.jump <= -15) {
+				character.jump = 15;
+				isJumping = false;
+			}
+			if (isJumping == true) {
+				yPos -= character.jump;
+			}
+			if (character.jump >-15) {
+				character.jump -= 1;
+			}
+		}
+		mouseX = MouseInfo.getPointerInfo().getLocation().x;
+		if (mouseX - xPos - 50 < 0) {
+			turnedLeft = true;
+		} else {
+			turnedLeft = false;
+		}
+		if (turnedLeft == true) {
+			character.image = leftcapn;
+			gunxpos = xPos - 70;
+			gunypos = yPos + 40;
+			gunpic = weaponleft;
+		} else {
+			character.image = capn;
+			gunxpos = xPos;
+			gunypos = yPos;
+			gunpic = weapon;
 		}
 	}
 	
 	public void render(Graphics g) {
-		ArmRotator.drawNewArm(g);
+		g.drawImage(character.image, xPos, yPos, character.width, character.height, null);
+		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunpic);
 	}
 }

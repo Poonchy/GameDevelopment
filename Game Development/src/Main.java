@@ -60,7 +60,7 @@ public class Main extends JFrame implements Runnable{
 		
 	//Canvas
 	//The canvas is what the graphics are "drawn" on
-		canvas.setPreferredSize(new Dimension(1000,500));
+		canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
 		canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
 		canvas.setFocusable(false);
@@ -72,7 +72,6 @@ public class Main extends JFrame implements Runnable{
 	//States
 		menuState = new MenuState(this);
 		gameState = new GameState(this);
-		
 		State.setCurrentState(menuState);
 
 	//Peripherals
