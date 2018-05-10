@@ -86,7 +86,7 @@ public class GameState extends State {
 	public void render(Graphics g) {
 		g.drawImage(character.image, xPos, yPos, character.width, character.height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunpic);
-
+//test
 		for (Bullets b: bulletlist) {
 			b.render(g);
 		}
