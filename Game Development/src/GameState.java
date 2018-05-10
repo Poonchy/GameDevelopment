@@ -22,11 +22,12 @@ public class GameState extends State {
     BufferedImage leftcapn = ImageLoader.loadImage("res/textures/capnleft.png");
     BufferedImage capn = ImageLoader.loadImage("res/textures/capn.png");
     static boolean turnedLeft = false;
-    public static ArrayList<Bullets> bulletlisttemp = new ArrayList<Bullets>();
+    public static ArrayList<Bullets> bulletlist;
 	
 	public GameState(Main main) {
 		super(main);
 		character = new Player(main, xPos, yPos, 100, 100, ImageLoader.loadImage("res/textures/capn.png"), 4, 4, -15, 4, 4);
+		bulletlist = new ArrayList<Bullets>();
 	}
 	
 	public void update() {
@@ -75,7 +76,7 @@ public class GameState extends State {
 			gunpic = weapon;
 		}
 		
-		for (Bullets b: Bullets.bulletlist) {
+		for (Bullets b: bulletlist) {
 			b.update();
 		}
 	}
@@ -83,7 +84,7 @@ public class GameState extends State {
 	public void render(Graphics g) {
 		g.drawImage(character.image, xPos, yPos, character.width, character.height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunpic);
-		for (Bullets b: Bullets.bulletlist) {
+		for (Bullets b: bulletlist) {
 			b.render(g);
 		}
 	}

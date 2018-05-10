@@ -70,7 +70,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 		if (shooting == false) {
 			shooting = true;
 			task = new MyTimerTask();
-			timer.scheduleAtFixedRate(task, 0, 100);
+			timer.scheduleAtFixedRate(task, 0, 10);
 			Timer timert = new Timer();
 	        timert.schedule(new TimerTask() {
 	        	  @Override

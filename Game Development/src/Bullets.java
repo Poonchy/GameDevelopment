@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bullets extends Projectile {
-	public static ArrayList<Bullets> bulletlist = new ArrayList<Bullets>();
+	//public static ArrayList<Bullets> bulletlist = new ArrayList<Bullets>();
 	static BufferedImage bullet = ImageLoader.loadImage("res/textures/bullet.png");
 	private double angle;
 	private boolean left;
@@ -31,17 +31,17 @@ public class Bullets extends Projectile {
         double angle = -Math.atan2((mouseY-yposition),(mouseX-xposition));
         if (GameState.turnedLeft == true) {
         	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition - (int)(50 * Math.sin(angle)), 10, 10, bullet, 30, 100, angle, true);
-        	bulletlist.add(tempbullet);
+        	GameState.bulletlist.add(tempbullet);
         } else {
         	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition + 40 - (int)(50 * Math.sin(angle)), 10, 10, bullet, 30, 100, angle, false);
-        	bulletlist.add(tempbullet);
+        	GameState.bulletlist.add(tempbullet);
         }
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
         	  @Override
         	  public void run() {
-        		if (bulletlist.size() >= 1) {
-        			bulletlist.remove(0);
+        		if (GameState.bulletlist.size() >= 1) {
+        			GameState.bulletlist.remove(0);
         		}
         	  }
     	}, 4000);
