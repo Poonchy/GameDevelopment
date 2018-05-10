@@ -4,6 +4,7 @@ import java.awt.MouseInfo;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 public class GameState extends State {
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private static int windowHeight = (int) screenSize.getHeight();
@@ -22,6 +23,7 @@ public class GameState extends State {
     BufferedImage leftcapn = ImageLoader.loadImage("res/textures/capnleft.png");
     BufferedImage capn = ImageLoader.loadImage("res/textures/capn.png");
     static boolean turnedLeft = false;
+
     public static ArrayList<Bullets> bulletlist;
 	
 	public GameState(Main main) {
@@ -84,8 +86,14 @@ public class GameState extends State {
 	public void render(Graphics g) {
 		g.drawImage(character.image, xPos, yPos, character.width, character.height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunpic);
+
 		for (Bullets b: bulletlist) {
 			b.render(g);
 		}
+		Iterator<Bullets> iter = Bullets.bulletlist.iterator();
+		while(iter.hasNext()) {
+		  iter.next().render(g);
+	  }
+
 	}
 }

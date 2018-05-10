@@ -3,12 +3,13 @@ import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 
 public class Bullets extends Projectile {
-	//public static ArrayList<Bullets> bulletlist = new ArrayList<Bullets>();
+	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
 	static BufferedImage bullet = ImageLoader.loadImage("res/textures/bullet.png");
 	private double angle;
 	private boolean left;
@@ -30,21 +31,19 @@ public class Bullets extends Projectile {
         int mouseX = MouseInfo.getPointerInfo().getLocation().x;
         double angle = -Math.atan2((mouseY-yposition),(mouseX-xposition));
         if (GameState.turnedLeft == true) {
-        	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition - (int)(50 * Math.sin(angle)), 10, 10, bullet, 30, 100, angle, true);
-        	GameState.bulletlist.add(tempbullet);
+        	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition - (int)(50 * Math.sin(angle)), 10, 10, bullet, 10, 100, angle, true);
+        	bulletlist.add(tempbullet);
         } else {
-        	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition + 40 - (int)(50 * Math.sin(angle)), 10, 10, bullet, 30, 100, angle, false);
-        	GameState.bulletlist.add(tempbullet);
+        	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition + 40 - (int)(50 * Math.sin(angle)), 10, 10, bullet, 10, 100, angle, false);
+        	bulletlist.add(tempbullet);
         }
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
         	  @Override
         	  public void run() {
-        		if (GameState.bulletlist.size() >= 1) {
-        			GameState.bulletlist.remove(0);
-        		}
+    			bulletlist.poll();
         	  }
-    	}, 4000);
+    	}, 2000);
 	}
 	
 	

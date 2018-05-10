@@ -6,6 +6,7 @@ public abstract class Entity {
 	public int xPos, yPos, height, width;
 	
 	
+	@SuppressWarnings("static-access")
 	public Entity(Main main, int x, int y, int width, int height) {
 		this.main = main;
 		xPos = x;

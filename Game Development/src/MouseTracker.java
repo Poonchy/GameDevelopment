@@ -77,7 +77,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	        	  public void run() {
 	        		shooting = false;
 	        	  }
-	    	}, 1000);
+	    	}, 4000);
 		} else {
 			shooting = false;
 		}
