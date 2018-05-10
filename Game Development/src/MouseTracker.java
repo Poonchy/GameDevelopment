@@ -1,8 +1,15 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MouseTracker implements MouseListener, MouseMotionListener{
+	int bulletid;
+	Bullets bullet;
+	int bulletx = GameState.gunxpos;
+	int bullety;
+	boolean shooting = false;
 	
 	private boolean clickedWithinBounds(Button button, MouseEvent arg0) {
 		if(((arg0.getX() >= button.xPos)
@@ -17,28 +24,30 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
-		if (clickedWithinBounds(MenuState.startbtn, arg0)) {
-			MenuState.startbtn.imagepath = AssetLoader.imgstartbtnhover;
-		} else {
-			MenuState.startbtn.imagepath = AssetLoader.imgstartbtn;
-		}
-		if (clickedWithinBounds(MenuState.endbtn, arg0)) {
-			MenuState.endbtn.imagepath = AssetLoader.imgendbtnhover;
-		} else {
-			MenuState.endbtn.imagepath = AssetLoader.imgendbtn;
+		if (State.getCurrentState() == Main.menuState) {
+			if (clickedWithinBounds(MenuState.startbtn, arg0)) {
+				MenuState.startbtn.imagepath = AssetLoader.imgstartbtnhover;
+			} else {
+				MenuState.startbtn.imagepath = AssetLoader.imgstartbtn;
+			}
+			if (clickedWithinBounds(MenuState.endbtn, arg0)) {
+				MenuState.endbtn.imagepath = AssetLoader.imgendbtnhover;
+			} else {
+				MenuState.endbtn.imagepath = AssetLoader.imgendbtn;
+			}
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if(clickedWithinBounds(MenuState.endbtn, arg0)) {
-			System.exit(0);
+		if (State.getCurrentState() == Main.menuState) {
+			if(clickedWithinBounds(MenuState.endbtn, arg0)) {
+				System.exit(0);
+			}
+			if(clickedWithinBounds(MenuState.startbtn, arg0)) {
+				State.setCurrentState(Main.gameState);
+			}
 		}
-		if(clickedWithinBounds(MenuState.startbtn, arg0)) {
-			State.setCurrentState(Main.gameState);
-		}
-		
-		
 	}
 
 	@Override
@@ -53,16 +62,36 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 		
 	}
 
+	Timer timer = new Timer();
+	TimerTask task = new MyTimerTask();
+	
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if (shooting == false) {
+			shooting = true;
+			task = new MyTimerTask();
+			timer.scheduleAtFixedRate(task, 0, 100);
+			Timer timert = new Timer();
+	        timert.schedule(new TimerTask() {
+	        	  @Override
+	        	  public void run() {
+	        		shooting = false;
+	        	  }
+	    	}, 1000);
+		} else {
+			shooting = false;
+		}
+	}
+	
+	private class MyTimerTask extends TimerTask {
+	    public void run() {
+	    	Bullets.makeBullet(GameState.gunxpos, GameState.gunypos);
+	    }
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		task.cancel();
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class ArmRotator {
         double angle = Math.atan2((mouseY-OneAndHalfY),(mouseX-OneAndHalfX));
 		Graphics2D g2d = (Graphics2D) g;
 		AffineTransform at = AffineTransform.getTranslateInstance(0,0);
-		at.translate(xposition,yposition);
+		at.translate(xposition + 20,yposition);
 		at.rotate(angle);
 		at.scale(testx, testy);
 	    g2d.drawImage(image, at, null);

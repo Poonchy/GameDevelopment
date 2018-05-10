@@ -2,7 +2,7 @@ import java.awt.Graphics;
 
 public abstract class Entity {
 	
-	public Main main;
+	public static Main main;
 	public int xPos, yPos, height, width;
 	
 	

@@ -3,16 +3,17 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-
+import java.util.ArrayList;
 public class GameState extends State {
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private int windowHeight = (int) screenSize.getHeight();
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private static int windowHeight = (int) screenSize.getHeight();
 	Main main;
-	Player character;
+	static Player character;
+	Bullets boolet;
 	int xPos = 10;
 	int yPos = windowHeight - 100;
-	int gunxpos = 10;
-	int gunypos = windowHeight - 100;
+	static int gunxpos = 10;
+	static int gunypos = windowHeight - 100;
 	BufferedImage weapon = ImageLoader.loadImage("res/textures/weapon.png");
 	BufferedImage weaponleft = ImageLoader.loadImage("res/textures/weaponleft.png");
 	BufferedImage gunpic;
@@ -20,7 +21,8 @@ public class GameState extends State {
     int mouseX;
     BufferedImage leftcapn = ImageLoader.loadImage("res/textures/capnleft.png");
     BufferedImage capn = ImageLoader.loadImage("res/textures/capn.png");
-    boolean turnedLeft = false;
+    static boolean turnedLeft = false;
+    public static ArrayList<Bullets> bulletlisttemp = new ArrayList<Bullets>();
 	
 	public GameState(Main main) {
 		super(main);
@@ -72,10 +74,17 @@ public class GameState extends State {
 			gunypos = yPos;
 			gunpic = weapon;
 		}
+		
+		for (Bullets b: Bullets.bulletlist) {
+			b.update();
+		}
 	}
 	
 	public void render(Graphics g) {
 		g.drawImage(character.image, xPos, yPos, character.width, character.height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunpic);
+		for (Bullets b: Bullets.bulletlist) {
+			b.render(g);
+		}
 	}
 }
