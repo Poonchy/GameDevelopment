@@ -24,6 +24,7 @@ public class GameState extends State {
     BufferedImage leftcapn = ImageLoader.loadImage("res/textures/capnleft.png");
     BufferedImage capn = ImageLoader.loadImage("res/textures/capn.png");
     static boolean turnedLeft = false;
+    Grenada ability = new Grenada(capn, 3000, 4, null);
 	
 	public GameState(Main main) {
 		super(main);
@@ -83,29 +84,18 @@ public class GameState extends State {
 			g.update();
 		}
 		
-		if ((Grenade.grenadecd < 3) && (Grenade.isCharging == false)) {
-			Timer timer = new Timer();
-			Grenade.isCharging = true;
-	        timer.schedule(new TimerTask() {
-	        	  public void run() {
-	        		  Grenade.grenadecd += 1;
-	        		  Grenade.isCharging = false;
-	        	  }
-			}, 3000);
-		}
+		ability.update();
 	}
 	
 	public void render(Graphics g) {
 		g.drawImage(character.image, xPos, yPos, character.width, character.height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunpic);
-		Iterator<Bullets> iter = Bullets.bulletlist.iterator();
-		while(iter.hasNext()) {
-		  iter.next().render(g);
+		for (Bullets b: Bullets.bulletlist) {
+			b.render(g);
 		}
 		
-		Iterator<Grenade> giter = Grenade.grenadelist.iterator();
-		while(giter.hasNext()) {
-		  giter.next().render(g);
+		for (Grenade ge: Grenade.grenadelist) {
+			ge.render(g);
 		}
 		
 		g.drawString("" + Grenade.grenadecd, 10, 10);

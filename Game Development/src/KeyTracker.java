@@ -3,16 +3,14 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
 public class KeyTracker implements KeyListener{
-	public static boolean wpressed;
-	public static boolean apressed;
-	public static boolean spressed;
-	public static boolean dpressed;
+	public static boolean wpressed,apressed,spressed,dpressed,onepressed;
 	public static boolean grenadetossed;
+	public static boolean primaryWeapon;
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (State.getCurrentState() == Main.gameState) { //Checks if in gameState
-			if (e.getKeyCode() == 87) { //W Pressed
+			if (e.getKeyCode() == 32) { //Space Pressed
 				wpressed = true;
 			}
 			if (e.getKeyCode() == 65) { //A Pressed
@@ -24,12 +22,8 @@ public class KeyTracker implements KeyListener{
 			if (e.getKeyCode() == 68) { //D Pressed
 				dpressed = true;
 			}
-			if (e.getKeyCode() == 32) { //Space Pressed
-				if (grenadetossed == true) {
-				} else {
-					Grenade.makeGrenade(GameState.gunxpos, GameState.gunypos);
-					grenadetossed = true;
-				}
+			if (e.getKeyCode() == 49) { //1 Pressed
+				onepressed = true;
 			}
 		}
 	}
@@ -37,7 +31,7 @@ public class KeyTracker implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (State.getCurrentState() == Main.gameState) { //Checks if in gameState
-			if (e.getKeyCode() == 87) { //W Released
+			if (e.getKeyCode() == 32) { //Space Released
 				wpressed = false;
 			}
 			if (e.getKeyCode() == 65) { //A Released
@@ -49,8 +43,15 @@ public class KeyTracker implements KeyListener{
 			if (e.getKeyCode() == 68) { //D Released
 				dpressed = false;
 			}
-			if (e.getKeyCode() == 32) { //Space released
-				grenadetossed = false;
+			if (e.getKeyCode() == 49) { //1 released
+				onepressed = false;
+			}
+			if (e.getKeyCode() == 32) { //Space Pressed
+				if (primaryWeapon) {
+					primaryWeapon = false;
+				} else {
+					primaryWeapon = true;
+				}
 			}
 		}
 	}
