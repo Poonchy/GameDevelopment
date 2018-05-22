@@ -1,11 +1,13 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 
 public class KeyTracker implements KeyListener{
 	public static boolean wpressed;
 	public static boolean apressed;
 	public static boolean spressed;
 	public static boolean dpressed;
+	public static boolean grenadetossed;
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -21,6 +23,13 @@ public class KeyTracker implements KeyListener{
 			}
 			if (e.getKeyCode() == 68) { //D Pressed
 				dpressed = true;
+			}
+			if (e.getKeyCode() == 32) { //Space Pressed
+				if (grenadetossed == true) {
+				} else {
+					Grenade.makeGrenade(GameState.gunxpos, GameState.gunypos);
+					grenadetossed = true;
+				}
 			}
 		}
 	}
@@ -39,6 +48,9 @@ public class KeyTracker implements KeyListener{
 			}
 			if (e.getKeyCode() == 68) { //D Released
 				dpressed = false;
+			}
+			if (e.getKeyCode() == 32) { //Space released
+				grenadetossed = false;
 			}
 		}
 	}

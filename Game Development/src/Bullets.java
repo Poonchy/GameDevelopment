@@ -12,7 +12,6 @@ public class Bullets extends Projectile {
 	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
 	static BufferedImage bullet = ImageLoader.loadImage("res/textures/bullet.png");
 	private double angle;
-	private boolean left;
 	public Bullets(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left) {
 		super(main, x, y, width, height, image, speed, duration);
 		this.width = width;
@@ -23,18 +22,22 @@ public class Bullets extends Projectile {
 		this.speed = speed;
 		this.duration = duration;
 		this.angle = angle;
-		this.left = left;
 	}
 	
 	public static void makeBullet(int xposition, int yposition) {
 		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
         int mouseX = MouseInfo.getPointerInfo().getLocation().x;
-        double angle = -Math.atan2((mouseY-yposition),(mouseX-xposition));
         if (GameState.turnedLeft == true) {
-        	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition - (int)(50 * Math.sin(angle)), 10, 10, bullet, 10, 100, angle, true);
+        	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
+        	angle += Math.random() * .1;
+        	angle -= Math.random() * .1;
+        	Bullets tempbullet = new Bullets (main, xposition+100, yposition+30, 10, 10, bullet, 25, 100, angle, true);
         	bulletlist.add(tempbullet);
         } else {
-        	Bullets tempbullet = new Bullets (main, xposition + 80 + (int)(50 * Math.cos(angle)), yposition + 40 - (int)(50 * Math.sin(angle)), 10, 10, bullet, 10, 100, angle, false);
+        	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
+        	angle += Math.random() * .1;
+        	angle -= Math.random() * .1;
+        	Bullets tempbullet = new Bullets (main, xposition+10, yposition+50, 10, 10, bullet, 25, 100, angle, false);
         	bulletlist.add(tempbullet);
         }
         Timer timer = new Timer();
@@ -43,19 +46,14 @@ public class Bullets extends Projectile {
         	  public void run() {
     			bulletlist.poll();
         	  }
-    	}, 2000);
+    	}, 1000);
 	}
 	
 	
 	@Override
 	public void update() {
-		if (this.left == true) {
-			this.xPos += this.speed * Math.cos(this.angle);
-			this.yPos -= this.speed * Math.sin(this.angle);
-		} else {
-			this.xPos += this.speed * Math.cos(this.angle);
-			this.yPos -= this.speed * this.angle;
-		}
+		this.xPos += this.speed * Math.cos(this.angle);
+		this.yPos -= this.speed * Math.sin(this.angle);
 	}
 	
 	@Override
@@ -67,10 +65,10 @@ public class Bullets extends Projectile {
 		Graphics2D g2d = (Graphics2D) g;
 		AffineTransform at = new AffineTransform();
 		at.translate(this.xPos, this.yPos);
-		if (this.left == true) {
-			at.rotate(-this.angle, -80-(int)(50 * Math.cos(angle)), -(int)(50 * Math.sin(angle)));
+		if (GameState.turnedLeft == true) {
+			at.rotate(-this.angle, 0, -10);
 		} else {
-			at.rotate(-this.angle);
+			at.rotate(-this.angle, 50, 0);
 		}
 		at.scale(testx, testy);
 	    g2d.drawImage(image, at, null);

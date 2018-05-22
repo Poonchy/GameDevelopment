@@ -67,20 +67,12 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if (shooting == false) {
-			shooting = true;
-			task = new MyTimerTask();
-			timer.scheduleAtFixedRate(task, 0, 10);
-			Timer timert = new Timer();
-	        timert.schedule(new TimerTask() {
-	        	  @Override
-	        	  public void run() {
-	        		shooting = false;
-	        	  }
-	    	}, 400);
-		} else {
-			shooting = false;
+		if (shooting == true) {
+			task.cancel();
 		}
+		shooting = true;
+		task = new MyTimerTask();
+		timer.scheduleAtFixedRate(task, 0, 20);
 	}
 	
 	private class MyTimerTask extends TimerTask {
@@ -92,7 +84,9 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		task.cancel();
+		shooting = false;
 	}
+
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
