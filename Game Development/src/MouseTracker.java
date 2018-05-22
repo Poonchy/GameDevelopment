@@ -1,3 +1,4 @@
+import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -7,9 +8,11 @@ import java.util.TimerTask;
 public class MouseTracker implements MouseListener, MouseMotionListener{
 	int bulletid;
 	Bullets bullet;
-	int bulletx = GameState.gunxpos;
+	int bulletx = GameState.character.gunxpos;
 	int bullety;
 	boolean shooting = false;
+	
+	int mouseX, mouseY;
 	
 	private boolean clickedWithinBounds(Button button, MouseEvent arg0) {
 		if(((arg0.getX() >= button.xPos)
@@ -24,6 +27,8 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
+		mouseX = MouseInfo.getPointerInfo().getLocation().x;
+		mouseY = MouseInfo.getPointerInfo().getLocation().y;
 		if (State.getCurrentState() == Main.menuState) {
 			if (clickedWithinBounds(MenuState.startbtn, arg0)) {
 				MenuState.startbtn.imagepath = AssetLoader.imgstartbtnhover;
@@ -77,7 +82,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	
 	private class MyTimerTask extends TimerTask {
 	    public void run() {
-	    	Bullets.makeBullet(GameState.gunxpos, GameState.gunypos);
+	    	Bullets.makeBullet(GameState.character.gunxpos, GameState.character.gunypos);
 	    }
 	}
 

@@ -20,8 +20,8 @@ public class Main extends JFrame implements Runnable{
 	private int frames;
 	private int fps = 60;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private int windowWidth = (int) screenSize.getWidth();
-	private int windowHeight = (int) screenSize.getHeight();
+	public int windowWidth = (int) screenSize.getWidth();
+	public int windowHeight = (int) screenSize.getHeight();
 	private Canvas canvas = new Canvas();
 	private BufferStrategy bufferStrategy;
 	private Graphics g;

@@ -27,7 +27,7 @@ public class KeyTracker implements KeyListener{
 			if (e.getKeyCode() == 32) { //Space Pressed
 				if (grenadetossed == true) {
 				} else {
-					Grenade.makeGrenade(GameState.gunxpos, GameState.gunypos);
+					Grenade.makeGrenade(GameState.character.gunxpos, GameState.character.gunypos);
 					grenadetossed = true;
 				}
 			}
