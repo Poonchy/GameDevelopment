@@ -9,6 +9,10 @@ public class AssetLoader {
 	public static BufferedImage imgstartbtnhover = gameUi.getSubimage(buttonwidth, buttonheight, buttonwidth, buttonheight);;
 	public static BufferedImage imgendbtn = gameUi.getSubimage(0, 0, buttonwidth, buttonheight);;
 	public static BufferedImage imgendbtnhover = gameUi.getSubimage(buttonwidth, 0, buttonwidth, buttonheight);;
+	public static BufferedImage weapon = ImageLoader.loadImage("res/textures/weapon.png");
+	public static BufferedImage weaponleft = ImageLoader.loadImage("res/textures/weaponleft.png");
+    public static BufferedImage leftcapn = ImageLoader.loadImage("res/textures/capnleft.png");
+    public static BufferedImage capn = ImageLoader.loadImage("res/textures/capn.png");
 	
 	
 	public static void init(){

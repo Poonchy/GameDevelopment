@@ -28,7 +28,7 @@ public class Grenada extends Ability {
 		if (KeyTracker.onepressed) {
 			if (grenadeTossed == true) {
 			} else {
-				Grenade.makeGrenade(GameState.gunxpos, GameState.gunypos);
+				Grenade.makeGrenade(GameState.character.gunxpos, GameState.character.gunypos);
 				grenadeTossed = true;
 			}
 		} else {

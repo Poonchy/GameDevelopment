@@ -27,7 +27,7 @@ public class Bullets extends Projectile {
 	public static void makeBullet(int xposition, int yposition) {
 		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
         int mouseX = MouseInfo.getPointerInfo().getLocation().x;
-        if (GameState.turnedLeft == true) {
+        if (GameState.character.turnedLeft == true) {
         	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
@@ -65,7 +65,7 @@ public class Bullets extends Projectile {
 		Graphics2D g2d = (Graphics2D) g;
 		AffineTransform at = new AffineTransform();
 		at.translate(this.xPos, this.yPos);
-		if (GameState.turnedLeft == true) {
+		if (GameState.character.turnedLeft == true) {
 			at.rotate(-this.angle, 0, -10);
 		} else {
 			at.rotate(-this.angle, 50, 0);
