@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Player extends Creature{
+public class LadyChar extends Creature{
 	
 	public ArrayList<Upgrade> upgrades;
 	public Ability[] abilities;
@@ -15,9 +15,8 @@ public class Player extends Creature{
 	int gunypos = main.windowHeight - 100;
 	boolean turnedLeft = false;
 	public BufferedImage gunPic;
-	Grenada Grenada = new Grenada(image, 3000, 4, null);
 	
-	public Player(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
+	public LadyChar(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
 		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		abilities = new Ability[4];
 		upgrades = new ArrayList<Upgrade>();
@@ -34,27 +33,27 @@ public class Player extends Creature{
 			}
 		}
 		if (KeyTracker.apressed == true) {
-			xPos -= GameState.defaultchar.speed;
+			xPos -= GameState.ladycharacter.speed;
 			gunxpos = xPos;
 		}
 		if (KeyTracker.spressed == true) {
 		}
 		if (KeyTracker.dpressed == true) {
-			xPos += GameState.defaultchar.speed;
+			xPos += GameState.ladycharacter.speed;
 			gunxpos = xPos;
 		}
 		
 		// Jumping Behavior
 		if (isJumping == true) {
-			if (GameState.defaultchar.jump <= -15) {
-				GameState.defaultchar.jump = 15;
+			if (GameState.ladycharacter.jump <= -15) {
+				GameState.ladycharacter.jump = 15;
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				yPos -= GameState.defaultchar.jump;
+				yPos -= GameState.ladycharacter.jump;
 			}
-			if (GameState.defaultchar.jump >-15) {
-				GameState.defaultchar.jump -= 1;
+			if (GameState.ladycharacter.jump >-15) {
+				GameState.ladycharacter.jump -= 1;
 			}
 		}
 		
@@ -65,37 +64,28 @@ public class Player extends Creature{
 			turnedLeft = false;
 		}
 		if (turnedLeft == true) {
-			image = AssetLoader.leftcapn;
+			image = AssetLoader.leftlady;
 			gunxpos = xPos - 70;
 			gunypos = yPos + 40;
 			if (KeyTracker.primaryWeapon) {
-				gunPic = AssetLoader.rocketlauncher;
+				gunPic = AssetLoader.shotgun;
 			} else {
-				gunPic = AssetLoader.weaponleft;
+				gunPic = AssetLoader.pistol;
 			}
 		} else {
-			image = AssetLoader.capn;
+			image = AssetLoader.lady;
 			gunxpos = xPos;
 			gunypos = yPos;
 			if (KeyTracker.primaryWeapon) {
-				gunPic = AssetLoader.rocketlauncher;
+				gunPic = AssetLoader.shotgun;
 			} else {
-				gunPic = AssetLoader.weapon; 
+				gunPic = AssetLoader.pistol; 
 			}
 		}
 		
 		for (Bullets b: Bullets.bulletlist) {
 			b.update();
 		}
-		for (Rocket r: Rocket.Rocketlist) {
-			r.update();
-		}
-		for (Grenade g: Grenade.grenadelist) {
-			g.update();
-		}
-		
-		// Grenade behavior
-		Grenada.update();
 		
 	}
 
@@ -107,12 +97,6 @@ public class Player extends Creature{
 		
 		for (Bullets b: Bullets.bulletlist) {
 			b.render(g);
-		}
-		for (Rocket r: Rocket.Rocketlist) {
-			r.render(g);
-		}
-		for (Grenade ge: Grenade.grenadelist) {
-			ge.render(g);
 		}
 		
 		g.drawString("" + Grenade.grenadecd, 10, 10);

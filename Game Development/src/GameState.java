@@ -8,27 +8,30 @@ import java.util.Timer;
 import java.util.TimerTask;
 public class GameState extends State {
 	Main main;
-	static Player character;
-	Bullets boolet;
+	static LadyChar ladycharacter;
+	static Player defaultchar;
+	static Projectile projectile;
+	static String whichChar;
 	
 	public GameState(Main main) {
 		super(main);
-		character = new Player(main, 10, main.windowHeight, 100, 100, ImageLoader.loadImage("res/textures/capn.png"), 4, 4, -15, 4, 4);
+		ladycharacter = new LadyChar(main, 10, main.windowHeight, 100, 100, AssetLoader.capn, 4, 4, -15, 4, 4);
+		defaultchar = new Player(main, 10, main.windowHeight, 100, 100, AssetLoader.lady, 4, 4, -15, 4, 4);
 	}
 	
 	public void update() {
-		
-		character.update();
-		
-		for (Bullets b: Bullets.bulletlist) {
-			b.update();
-		}
-		for (Grenade g: Grenade.grenadelist) {
-			g.update();
+		if (whichChar == "Default") {
+			defaultchar.update();
+		} else if (whichChar == "Mlady") {
+			ladycharacter.update();
 		}
 	}
 	
 	public void render(Graphics g) {
-		character.render(g);
+		if (whichChar == "Default") {
+			defaultchar.render(g);
+		} else if (whichChar == "Mlady") {
+			ladycharacter.render(g);
+		}
 	}
 }

@@ -29,6 +29,7 @@ public class Main extends JFrame implements Runnable{
 	//States
 	static MenuState menuState;
 	static GameState gameState;
+	static ChooseState chooseState;
 	
 	//Peripherals
 	MouseTracker mouseTracker;
@@ -72,6 +73,7 @@ public class Main extends JFrame implements Runnable{
 	//States
 		menuState = new MenuState(this);
 		gameState = new GameState(this);
+		chooseState = new ChooseState(this);
 		State.setCurrentState(menuState);
 
 	//Peripherals

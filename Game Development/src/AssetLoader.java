@@ -13,8 +13,16 @@ public class AssetLoader {
 	public static BufferedImage weaponleft = ImageLoader.loadImage("res/textures/weaponleft.png");
     public static BufferedImage leftcapn = ImageLoader.loadImage("res/textures/capnleft.png");
     public static BufferedImage capn = ImageLoader.loadImage("res/textures/capn.png");
-	
-	
+    public static BufferedImage leftlady = ImageLoader.loadImage("res/textures/mladyleft.png");
+    public static BufferedImage lady = ImageLoader.loadImage("res/textures/mlady.png");
+    public static BufferedImage rocketlauncher = ImageLoader.loadImage("res/textures/rocketlauncher.png");
+    public static BufferedImage bullet = ImageLoader.loadImage("res/textures/bullet.png");
+    public static BufferedImage Rocket = ImageLoader.loadImage("res/textures/missle.png");
+    public static BufferedImage shotgun = ImageLoader.loadImage("res/textures/shotgun.png");
+    public static BufferedImage pistol = ImageLoader.loadImage("res/textures/pistol.png");
+    
+    
+    
 	public static void init(){
 		/*int buttonwidth = 445;
 		int buttonheight = 179;
