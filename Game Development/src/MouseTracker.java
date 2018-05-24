@@ -10,7 +10,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	Bullets bullet;
 	int bulletx = GameState.defaultchar.gunxpos;
 	int bullety;
-	boolean shooting = false;
+	static boolean shooting = false;
 	boolean slowFire = false;
 	
 	int mouseX, mouseY;
@@ -106,6 +106,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 			    	}, 1000);
 				}
 			} else {
+				shooting = true;
 				makeBullets = new SMGFire();
 				timer.scheduleAtFixedRate(makeBullets, 0, 50);
 			}
