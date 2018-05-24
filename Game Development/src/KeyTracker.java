@@ -1,6 +1,5 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 
 public class KeyTracker implements KeyListener{
 	public static boolean wpressed,apressed,spressed,dpressed,onepressed,grenadetossed,primaryWeapon;

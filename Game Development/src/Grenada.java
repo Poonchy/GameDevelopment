@@ -1,12 +1,7 @@
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.MouseInfo;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.Queue;
 
 public class Grenada extends Ability {
 	private boolean grenadeTossed = false;
