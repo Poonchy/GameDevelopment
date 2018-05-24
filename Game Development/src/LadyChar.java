@@ -15,6 +15,7 @@ public class LadyChar extends Creature{
 	int gunypos = main.windowHeight - 100;
 	boolean turnedLeft = false;
 	public BufferedImage gunPic;
+	Protection forcefield = new Protection(image, 10000, 1, null);
 	
 	public LadyChar(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
 		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
@@ -86,6 +87,11 @@ public class LadyChar extends Creature{
 		for (Bullets b: Bullets.bulletlist) {
 			b.update();
 		}
+		for (Forcefield g: Forcefield.forcefieldlist) {
+			g.update();
+		}
+		
+		forcefield.update();
 		
 	}
 
@@ -98,8 +104,11 @@ public class LadyChar extends Creature{
 		for (Bullets b: Bullets.bulletlist) {
 			b.render(g);
 		}
+		for (Forcefield ge: Forcefield.forcefieldlist) {
+			ge.render(g);
+		}
 		
-		g.drawString("" + Grenade.grenadecd, 10, 10);
+		g.drawString("" + Forcefield.forcefieldcd, 10, 10);
 		
 	}
 
