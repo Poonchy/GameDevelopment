@@ -1,3 +1,4 @@
+import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -7,9 +8,12 @@ import java.util.TimerTask;
 public class MouseTracker implements MouseListener, MouseMotionListener{
 	int bulletid;
 	Bullets bullet;
-	int bulletx = GameState.gunxpos;
+	int bulletx = GameState.defaultchar.gunxpos;
 	int bullety;
-	boolean shooting = false;
+	static boolean shooting = false;
+	boolean slowFire = false;
+	
+	int mouseX, mouseY;
 	
 	private boolean clickedWithinBounds(Button button, MouseEvent arg0) {
 		if(((arg0.getX() >= button.xPos)
@@ -24,6 +28,8 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
+		mouseX = MouseInfo.getPointerInfo().getLocation().x;
+		mouseY = MouseInfo.getPointerInfo().getLocation().y;
 		if (State.getCurrentState() == Main.menuState) {
 			if (clickedWithinBounds(MenuState.startbtn, arg0)) {
 				MenuState.startbtn.imagepath = AssetLoader.imgstartbtnhover;
@@ -45,6 +51,16 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 				System.exit(0);
 			}
 			if(clickedWithinBounds(MenuState.startbtn, arg0)) {
+				State.setCurrentState(Main.chooseState);
+			}
+		}
+		if (State.getCurrentState() == Main.chooseState) {
+			if (clickedWithinBounds(ChooseState.charonebtn, arg0)) {
+				GameState.whichChar = "Default";
+				State.setCurrentState(Main.gameState);
+			}
+			if (clickedWithinBounds(ChooseState.chartwobtn, arg0)) {
+				GameState.whichChar = "Mlady";
 				State.setCurrentState(Main.gameState);
 			}
 		}
@@ -63,36 +79,124 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	}
 
 	Timer timer = new Timer();
-	TimerTask task = new MyTimerTask();
+	TimerTask makeBullets = new SMGFire();
+	TimerTask makeRocket = new RPGFire();
+	TimerTask makePistolB = new PistolFire();
+	TimerTask makeShotgun = new ShotgunFire();
 	
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if (shooting == false) {
-			shooting = true;
-			task = new MyTimerTask();
-			timer.scheduleAtFixedRate(task, 0, 10);
-			Timer timert = new Timer();
-	        timert.schedule(new TimerTask() {
-	        	  @Override
-	        	  public void run() {
-	        		shooting = false;
-	        	  }
-	    	}, 4000);
-		} else {
-			shooting = false;
+
+		if (GameState.whichChar == "Default") { // Character Default
+			if (shooting == true) {
+				makeBullets.cancel();
+				makeRocket.cancel();
+			}
+			if (KeyTracker.primaryWeapon) {
+				shooting = true;
+				makeRocket = new RPGFire();
+				if (!slowFire) {
+					slowFire = true;
+					timer.scheduleAtFixedRate(makeRocket, 0, 1000);
+					Timer timer = new Timer();
+			        timer.schedule(new TimerTask() {
+			        	  @Override
+			        	  public void run() {
+			    			slowFire = false;
+			        	  }
+			    	}, 1000);
+				}
+			} else {
+				shooting = true;
+				makeBullets = new SMGFire();
+				timer.scheduleAtFixedRate(makeBullets, 0, 50);
+			}
+		} else if (GameState.whichChar == "Mlady") { // Character M'lady
+			if (shooting == true) {
+				makePistolB.cancel();
+				makeShotgun.cancel();
+			}
+			if (!KeyTracker.primaryWeapon) {
+				shooting = true;
+				makePistolB = new PistolFire();
+				if (!slowFire) {
+					slowFire = true;
+					timer.scheduleAtFixedRate(makePistolB, 0, 500);
+					Timer timer = new Timer();
+			        timer.schedule(new TimerTask() {
+			        	  @Override
+			        	  public void run() {
+			    			slowFire = false;
+			        	  }
+			    	}, 500);
+				}
+			} else {
+				shooting = true;
+				makeShotgun = new ShotgunFire();
+				if (!slowFire) {
+					slowFire = true;
+					timer.scheduleAtFixedRate(makeShotgun, 0, 800);
+					Timer timer = new Timer();
+			        timer.schedule(new TimerTask() {
+			        	  @Override
+			        	  public void run() {
+			    			slowFire = false;
+			        	  }
+			    	}, 800);
+				}
+			}
+
 		}
 	}
 	
-	private class MyTimerTask extends TimerTask {
+	private class SMGFire extends TimerTask {
 	    public void run() {
-	    	Bullets.makeBullet(GameState.gunxpos, GameState.gunypos);
+	    	Bullets.makeBullet(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
+	    }
+	}
+	
+	private class RPGFire extends TimerTask {
+	    public void run() {
+	    	Rocket.makeRocket(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
+	    }
+	}
+	
+	private class PistolFire extends TimerTask {
+	    public void run() {
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    }
+	}
+	
+	private class ShotgunFire extends TimerTask {
+	    public void run() {
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	    	Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
 	    }
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		task.cancel();
+		if (GameState.whichChar == "Default") {
+			makeBullets.cancel();
+			makeRocket.cancel();
+			shooting = false;
+		}
+		if (GameState.whichChar == "Mlady") {
+			makePistolB.cancel();
+			makeShotgun.cancel();
+			shooting = false;
+		}
 	}
+
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
