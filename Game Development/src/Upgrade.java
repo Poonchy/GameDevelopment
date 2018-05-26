@@ -1,9 +1,12 @@
 
-public class Upgrade {
+public abstract class Upgrade {
 
-
-	Upgrade() {
-		
+	Ability upgradedAbility;
+	
+	Upgrade(Ability upgrade) {
+		upgradedAbility = upgrade;
 	}
+	
+	public abstract void runBehavior();
 
 }

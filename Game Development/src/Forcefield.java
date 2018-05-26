@@ -31,7 +31,7 @@ public class Forcefield extends Projectile{
 	        	  public void run() {
 	    			forcefieldlist.poll();
 	        	  }
-	    	}, 5000);
+	    	}, forcefield.duration);
 	        Timer add = new Timer();
 	        add.schedule(new TimerTask() {
 	        	  @Override

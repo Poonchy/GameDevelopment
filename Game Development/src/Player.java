@@ -12,12 +12,24 @@ public class Player extends Creature{
 	int gunypos = main.windowHeight - 100;
 	boolean turnedLeft = false;
 	public BufferedImage gunPic;
-	Grenada Grenada = new Grenada(image, 3000, 4, null);
+	public static Ability grenada;
+	Upgrade grenadaSplit;
 	
 	public Player(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
 		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
+		
+		grenada = new Grenada(image, 3000, 4, null);
+		
 		abilities = new Ability[4];
+		abilities[0] = grenada;
+		abilities[1] = null;
+		abilities[2] = null;
+		abilities[3] = null;
+		
+		grenadaSplit = new GrenadaSplit();
+		
 		upgrades = new ArrayList<Upgrade>();
+		upgrades.add(grenadaSplit);
 		
 	}
 
@@ -92,7 +104,7 @@ public class Player extends Creature{
 		}
 		
 		// Grenade behavior
-		Grenada.update();
+		grenada.update();
 		
 	}
 
@@ -112,7 +124,7 @@ public class Player extends Creature{
 			ge.render(g);
 		}
 		
-		g.drawString("" + Grenade.grenadecd, 10, 10);
+		g.drawString("" + Grenada.grenadecd, 10, 10);
 		
 	}
 
