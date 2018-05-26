@@ -8,9 +8,11 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Queue;
 
+
 public class Bullets extends Projectile {
 	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
 	private double angle;
+	
 	public Bullets(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left) {
 		super(main, x, y, width, height, image, speed, duration);
 		this.width = width;

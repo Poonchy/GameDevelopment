@@ -13,9 +13,7 @@ public class Grenade extends Projectile {
 	static BufferedImage grenade = ImageLoader.loadImage("res/textures/grenade.png");
 	private double angle;
 	private int yspeed;
-	public static int grenadecd = 3;
-	public static boolean isCharging;
-	public Grenade(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left, int yspeed) {
+	public Grenade( int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left, int yspeed) {
 		super(main, x, y, width, height, image, speed, duration);
 		this.width = width;
 		this.xPos = x;
@@ -29,16 +27,16 @@ public class Grenade extends Projectile {
 	}
 	
 	public static void makeGrenade(int xposition, int yposition) {
-		if (grenadecd > 0) {
+		if (Grenada.grenadecd > 0) {
 			int mouseY = MouseInfo.getPointerInfo().getLocation().y;
 	        int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 	        if (GameState.defaultchar.turnedLeft == true) {
 	        	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
-	        	Grenade tempbullet = new Grenade (main, xposition+100, yposition+30, 30, 30, grenade, 18, 30, angle, true, 25);
+	        	Grenade tempbullet = new Grenade ( xposition+100, yposition+30, 30, 30, grenade, 18, 30, angle, true, 25);
 	        	grenadelist.add(tempbullet);
 	        } else {
 	        	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
-	        	Grenade tempbullet = new Grenade (main, xposition+10, yposition+50, 30, 30, grenade, 18, 30, angle, false, 25);
+	        	Grenade tempbullet = new Grenade ( xposition+10, yposition+50, 30, 30, grenade, 18, 30, angle, false, 25);
 	        	grenadelist.add(tempbullet);
 	        }
 	        Timer timer = new Timer();
@@ -46,12 +44,36 @@ public class Grenade extends Projectile {
 	        	  @Override
 	        	  public void run() {
 	    			grenadelist.poll();
+	    			
 	        	  }
-	    	}, 3000);
-	        grenadecd -= 1;
+	    	}, 1000);
+	        Grenada.grenadecd -= 1;
 		}
 	}
 	
+	// launch grenade based on distance inputed *not mouse position*
+	public static void makeGrenade(int xposition, int yposition, int distanceX, int distanceY) {
+		if (Grenada.grenadecd > 0) {
+	        if (GameState.defaultchar.turnedLeft == true) {
+	        	double angle = -Math.atan2(distanceY, distanceX*-1);
+	        	Grenade tempbullet = new Grenade ( xposition+100, yposition+30, 30, 30, grenade, 18, 30, angle, true, 25);
+	        	grenadelist.add(tempbullet);
+	        } else {
+	        	double angle = -Math.atan2(distanceY, distanceX);
+	        	Grenade tempbullet = new Grenade ( xposition+10, yposition+50, 30, 30, grenade, 18, 30, angle, false, 25);
+	        	grenadelist.add(tempbullet);
+	        }
+	        Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	        	  @Override
+	        	  public void run() {
+	    			grenadelist.poll();
+	    			
+	        	  }
+	    	}, 1000);
+	        Grenada.grenadecd -= 1;
+		}
+	}
 	
 	@Override
 	public void update() {

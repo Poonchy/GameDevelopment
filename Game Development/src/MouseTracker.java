@@ -92,7 +92,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		mouseHeld = true;
-		if (GameState.whichChar == "Default") {
+		if (GameState.whichChar == "Default") { // Character Default
 			if (shooting == true) {
 				makeBullets.cancel();
 				makeRocket.cancel();
@@ -108,8 +108,8 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 					timer.scheduleAtFixedRate(makeBullets, 0, 50);
 				}
 			}
-		} else if (GameState.whichChar == "Mlady") {
-			if (shooting || slowFire) {
+		} else if (GameState.whichChar == "Mlady") { // Character M'lady
+			if (shooting == true) {
 				makePistolB.cancel();
 				makeShotgun.cancel();
 			}
@@ -134,6 +134,7 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 					timer.scheduleAtFixedRate(swingAxe, 0, 1000);
 				}
 			}
+
 		}
 	}
 	

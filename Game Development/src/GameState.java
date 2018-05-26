@@ -33,4 +33,5 @@ public class GameState extends State {
 			warrior.render(g);
 		}
 	}
+	
 }
