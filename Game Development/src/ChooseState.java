@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 public class ChooseState extends State{
 	
 	Main main;
-	public static Button charonebtn, chartwobtn;
+	public static Button charonebtn, chartwobtn, charthreebtn;
 	public static Button endbtn;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int windowWidth = (int) screenSize.getWidth();
@@ -16,8 +16,9 @@ public class ChooseState extends State{
 	
 	public ChooseState(Main main) { 
 		super(main);
-		charonebtn = new Button(200, 200, btnxoffset - 200, btnyoffset, AssetLoader.capn);
-		chartwobtn = new Button(200, 200, btnxoffset + 200, btnyoffset, AssetLoader.lady);
+		charonebtn = new Button(200, 200, btnxoffset - 400, btnyoffset, AssetLoader.capn);
+		chartwobtn = new Button(200, 200, btnxoffset, btnyoffset, AssetLoader.lady);
+		charthreebtn = new Button(200, 200, btnxoffset + 400, btnyoffset, AssetLoader.warrior);
 	}
 	
 	public void update() {
@@ -28,6 +29,7 @@ public class ChooseState extends State{
 		g.drawString("Choose your hero!", (windowWidth - 800) / 2, 150);
 		g.drawImage(charonebtn.imagepath, charonebtn.xPos, charonebtn.yPos, charonebtn.width, charonebtn.height, null);
 		g.drawImage(chartwobtn.imagepath, chartwobtn.xPos, chartwobtn.yPos, chartwobtn.width, chartwobtn.height, null);
+		g.drawImage(charthreebtn.imagepath, charthreebtn.xPos, charthreebtn.yPos, charthreebtn.width, charthreebtn.height, null);
 	}
 	
 }

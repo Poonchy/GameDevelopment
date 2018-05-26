@@ -47,7 +47,7 @@ public class KeyTracker implements KeyListener{
 				onepressed = false;
 			}
 			if (e.getKeyCode() == 192) { //` Pressed
-				if (!MouseTracker.shooting) {
+				if (!MouseTracker.mouseHeld) {
 					if (primaryWeapon) {
 						primaryWeapon = false;
 					} else {

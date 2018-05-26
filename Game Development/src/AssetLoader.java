@@ -20,6 +20,9 @@ public class AssetLoader {
     public static BufferedImage Rocket = ImageLoader.loadImage("res/textures/missle.png");
     public static BufferedImage shotgun = ImageLoader.loadImage("res/textures/shotgun.png");
     public static BufferedImage pistol = ImageLoader.loadImage("res/textures/pistol.png");
+    public static BufferedImage mainmenuart = ImageLoader.loadImage("res/textures/menuart.jpg");
+    public static BufferedImage leftwarrior = ImageLoader.loadImage("res/textures/warriorleft.png");
+    public static BufferedImage warrior = ImageLoader.loadImage("res/textures/warrior.png");
     
     
     
