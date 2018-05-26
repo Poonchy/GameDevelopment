@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class Forcefield extends Projectile{
 	public static Queue<Forcefield> forcefieldlist = new ConcurrentLinkedQueue <Forcefield>();
-	static BufferedImage forcefieldimg = ImageLoader.loadImage("res/textures/forcefield.png");
+	static BufferedImage forcefieldimg = ImageLoader.loadImage("/textures/forcefield.png");
 	public static int forcefieldcd = 1;
 	public static boolean isCharging;
 	public Forcefield(Main main, int x, int y, int width, int height, BufferedImage image, int duration, int speed) {

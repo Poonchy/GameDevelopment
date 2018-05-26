@@ -52,7 +52,7 @@ public class Main extends JFrame implements Runnable{
 		setVisible(true);
 		isRunning = true;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image cursorImage = ImageLoader.loadImage("/res/textures/reticle.png");
+		Image cursorImage = ImageLoader.loadImage("/textures/reticle.png");
 		Point cursorHotSpot = new Point(15,15);
 		Cursor customCursor = toolkit.createCustomCursor(cursorImage, cursorHotSpot, "Cursor");
 		setCursor(customCursor);
