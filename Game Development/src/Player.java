@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -126,9 +124,7 @@ public class Player extends Creature{
 			ge.render(g);
 		}
 		
-		g.setColor(Color.cyan);
 		g.drawString("" + Grenada.grenadecd, 10, 10);
-		g.setColor(Color.black);
 		
 	}
 

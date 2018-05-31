@@ -10,7 +10,7 @@ import java.util.Queue;
 
 public class Grenade extends Projectile {
 	public static Queue<Grenade> grenadelist = new ConcurrentLinkedQueue <Grenade>();
-	static BufferedImage grenade = ImageLoader.loadImage("/textures/grenade.png");
+	static BufferedImage grenade = ImageLoader.loadImage("res/textures/grenade.png");
 	private double angle;
 	private int yspeed;
 	public Grenade( int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left, int yspeed) {
