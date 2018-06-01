@@ -28,10 +28,10 @@ public class Item extends Entity{
 	
 	
 	private boolean isCollected() {
-		if(((GameState.defaultchar.xPos >= this.xPos)
+		if((((GameState.defaultchar.xPos + 100 >= this.xPos)
 				&&(GameState.defaultchar.xPos  <= (this.xPos + this.width)))
 				&&((GameState.defaultchar.yPos + GameState.defaultchar.height  >= this.yPos) 
-				&&(GameState.defaultchar.yPos + GameState.defaultchar.height  <= (this.yPos + this.height)))) 
+				&&(GameState.defaultchar.yPos + GameState.defaultchar.height  <= (this.yPos + this.height))))) 
 			{
 				return true;
 			}

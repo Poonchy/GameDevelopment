@@ -23,11 +23,11 @@ public class GrenadaSplit extends Upgrade {
 	    int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 	    if (GameState.defaultchar.turnedLeft == true) {
 	        double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
-	        Grenade tempbullet = new Grenade (xposition+100, yposition+30, 30, 30, 18, 30, angle, 25);
+	        Grenade tempbullet = new Grenade (xposition+100, yposition+30, 30, 30, 18, 30, angle, 25, true);
 	        Grenade.grenadelist.add(tempbullet);
 	    } else {
 	        double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
-	        Grenade tempbullet = new Grenade (xposition+10, yposition+50, 30, 30, 18, 30, angle, 25);
+	        Grenade tempbullet = new Grenade (xposition+10, yposition+50, 30, 30, 18, 30, angle, 25, false);
 	        Grenade.grenadelist.add(tempbullet);
 	    }
 	    Timer timer = new Timer();
