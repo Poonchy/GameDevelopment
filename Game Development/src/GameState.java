@@ -31,6 +31,7 @@ public class GameState extends State {
 		if(items[0] != null) {
 			items[0].update();
 		}
+
 	}
 	
 	public void render(Graphics g) {

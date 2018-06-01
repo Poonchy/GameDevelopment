@@ -9,9 +9,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Queue;
 
 public class Grenade extends Projectile {
+	
 	public static Queue<Grenade> grenadelist = new ConcurrentLinkedQueue <Grenade>();
 	private double angle;
 	private int yspeed;
+	
 	public Grenade( int x, int y, int width, int height, int speed, int duration, double angle, int yspeed) {
 		super(main, x, y, width, height, AssetLoader.grenade, speed, duration);
 		this.width = width;
