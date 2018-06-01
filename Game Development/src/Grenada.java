@@ -34,7 +34,7 @@ public class Grenada extends Ability {
 					grenadeTossed = true;	
 				}else {
 					GameState.defaultchar.grenadaSplit.runBehavior();
-					System.out.println("UPGRADED GRENADE");
+					System.out.println("THROW UPGRADED GRENADE");
 				}
 				
 				

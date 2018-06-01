@@ -1,9 +1,9 @@
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Player extends Creature{
 	
@@ -15,8 +15,8 @@ public class Player extends Creature{
 	boolean turnedLeft = false;
 	public BufferedImage gunPic;
 	public static Ability grenada;
-	Upgrade grenadaSplit;
-	
+	public static Upgrade grenadaSplit;
+ 	
 	public Player(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
 		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		
@@ -31,7 +31,6 @@ public class Player extends Creature{
 		grenadaSplit = new GrenadaSplit();
 		
 		upgrades = new ArrayList<Upgrade>();
-		upgrades.add(grenadaSplit);
 		
 	}
 
@@ -126,9 +125,7 @@ public class Player extends Creature{
 			ge.render(g);
 		}
 		
-		g.setColor(Color.cyan);
 		g.drawString("" + Grenada.grenadecd, 10, 10);
-		g.setColor(Color.black);
 		
 	}
 
