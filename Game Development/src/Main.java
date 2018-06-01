@@ -1,4 +1,6 @@
-
+/*
+ * Made by: Just Ronin
+ */
 import java.awt.Canvas;
 import java.awt.Cursor;
 import java.awt.Dimension;
