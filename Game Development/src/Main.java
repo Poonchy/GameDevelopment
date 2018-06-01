@@ -1,5 +1,5 @@
 /*
- * Made by:  Ronin
+ * Made by: Ronin
  */
 import java.awt.Canvas;
 import java.awt.Cursor;
