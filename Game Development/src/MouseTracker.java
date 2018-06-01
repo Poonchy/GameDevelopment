@@ -8,10 +8,11 @@ import java.util.TimerTask;
 public class MouseTracker implements MouseListener, MouseMotionListener{
 	int bulletid;
 	Bullets bullet;
-	int bulletx = GameState.character.gunxpos;
+	int bulletx = GameState.defaultchar.gunxpos;
 	int bullety;
-	boolean shooting = false;
-	
+	static boolean shooting = false;
+	boolean slowFire = false;
+	public static boolean mouseHeld;
 	int mouseX, mouseY;
 	
 	private boolean clickedWithinBounds(Button button, MouseEvent arg0) {
@@ -50,6 +51,20 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 				System.exit(0);
 			}
 			if(clickedWithinBounds(MenuState.startbtn, arg0)) {
+				State.setCurrentState(Main.chooseState);
+			}
+		}
+		if (State.getCurrentState() == Main.chooseState) {
+			if (clickedWithinBounds(ChooseState.charonebtn, arg0)) {
+				GameState.whichChar = "Default";
+				State.setCurrentState(Main.gameState);
+			}
+			if (clickedWithinBounds(ChooseState.chartwobtn, arg0)) {
+				GameState.whichChar = "Mlady";
+				State.setCurrentState(Main.gameState);
+			}
+			if (clickedWithinBounds(ChooseState.charthreebtn, arg0)) {
+				GameState.whichChar = "Warrior";
 				State.setCurrentState(Main.gameState);
 			}
 		}
@@ -68,28 +83,160 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	}
 
 	Timer timer = new Timer();
-	TimerTask task = new MyTimerTask();
+	TimerTask makeBullets = new SMGFire();
+	TimerTask makeRocket = new RPGFire();
+	TimerTask makePistolB = new PistolFire();
+	TimerTask makeShotgun = new ShotgunFire();
+	TimerTask swingAxe = new SwingAxe();
 	
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if (shooting == true) {
-			task.cancel();
+		mouseHeld = true;
+		if (GameState.whichChar == "Default") { // Character Default
+			if (shooting == true) {
+				makeBullets.cancel();
+				makeRocket.cancel();
+			}
+			if (KeyTracker.primaryWeapon) {
+				if (!slowFire) {
+					makeRocket = new RPGFire();
+					timer.scheduleAtFixedRate(makeRocket, 0, 2000);
+				}
+			} else {
+				if (!shooting) {
+					makeBullets = new SMGFire();
+					timer.scheduleAtFixedRate(makeBullets, 0, 50);
+				}
+			}
+		} else if (GameState.whichChar == "Mlady") { // Character M'lady
+			if (shooting == true) {
+				makePistolB.cancel();
+				makeShotgun.cancel();
+			}
+			if (!KeyTracker.primaryWeapon) {
+				if (!shooting) {
+					makePistolB = new PistolFire();
+					timer.scheduleAtFixedRate(makePistolB, 0, 400);
+				}
+			} else {
+				if (!slowFire) {
+					makeShotgun = new ShotgunFire();
+					timer.scheduleAtFixedRate(makeShotgun, 0, 1000);
+				}
+			}
+		} else if (GameState.whichChar == "Warrior") {
+			if (shooting == true) {
+				swingAxe.cancel();
+			}
+			if (!KeyTracker.primaryWeapon) {
+				if (!shooting) {
+					swingAxe = new SwingAxe();
+					timer.scheduleAtFixedRate(swingAxe, 0, 1000);
+				}
+			}
+
 		}
-		shooting = true;
-		task = new MyTimerTask();
-		timer.scheduleAtFixedRate(task, 0, 20);
 	}
 	
-	private class MyTimerTask extends TimerTask {
+	private class SMGFire extends TimerTask {
 	    public void run() {
-	    	Bullets.makeBullet(GameState.character.gunxpos, GameState.character.gunypos);
+	    	if (!shooting) {
+	    		Bullets.makeBullet(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
+	        }
+	    	shooting = true;
+	    	Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	        	  @Override
+	        	  public void run() {
+	    			shooting = false;
+	        	  }
+	    	}, 40);
+	    }
+	}
+	
+	private class RPGFire extends TimerTask {
+	    public void run() {
+	    	if (!slowFire) {
+	        	Rocket.makeRocket(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
+	        }
+	    	slowFire = true;
+	    	Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	        	  @Override
+	        	  public void run() {
+	        		  System.out.println("Slowfire detected!");
+	    			slowFire = false;
+	        	  }
+	    	}, 1990);
+	    }
+	}
+	
+	private class PistolFire extends TimerTask {
+	    public void run() {
+	    	if (!shooting) {
+	    		Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+	        }
+	    	shooting = true;
+	    	Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	        	  @Override
+	        	  public void run() {
+	    			shooting = false;
+	        	  }
+	    	}, 390);
+	    }
+	}
+	
+	private class ShotgunFire extends TimerTask {
+	    public void run() {
+	    	if (!slowFire) {
+	    		for (int i = 0; i < 10; i++) {
+		    		Bullets.makeBullet(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+		    	}
+	        }
+	    	slowFire = true;
+	    	Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	        	  @Override
+	        	  public void run() {
+	    			slowFire = false;
+	        	  }
+	    	}, 990);
+	    }
+	}
+	
+	private class SwingAxe extends TimerTask {
+	    public void run() {
+	    	if (!slowFire) {
+	    		for (int i = 0; i < 10; i++) {
+		    		Melee.makeHitbox(GameState.ladycharacter.gunxpos, GameState.ladycharacter.gunypos);
+		    	}
+	        }
+	    	slowFire = true;
+	    	Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	        	  @Override
+	        	  public void run() {
+	    			slowFire = false;
+	        	  }
+	    	}, 990);
 	    }
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		task.cancel();
-		shooting = false;
+		mouseHeld = false;
+		if (GameState.whichChar == "Default") {
+			makeBullets.cancel();
+			makeRocket.cancel();
+		}
+		if (GameState.whichChar == "Mlady") {
+			makePistolB.cancel();
+			makeShotgun.cancel();
+		}
+		if (GameState.whichChar == "Warrior") {
+			swingAxe.cancel();
+		}
 	}
 
 

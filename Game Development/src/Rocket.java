@@ -8,13 +8,10 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Queue;
 
-
-public class Bullets extends Projectile {
-
-	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
+public class Rocket extends Projectile {
+	public static Queue<Rocket> Rocketlist = new ConcurrentLinkedQueue <Rocket>();
 	private double angle;
-	
-	public Bullets(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left) {
+	public Rocket(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left) {
 		super(main, x, y, width, height, image, speed, duration);
 		this.width = width;
 		this.xPos = x;
@@ -26,27 +23,27 @@ public class Bullets extends Projectile {
 		this.angle = angle;
 	}
 	
-	public static void makeBullet(int xposition, int yposition) {
+	public static void makeRocket(int xposition, int yposition) {
 		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
         int mouseX = MouseInfo.getPointerInfo().getLocation().x;
         if (GameState.defaultchar.turnedLeft == true) {
         	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Bullets tempbullet = new Bullets (main, xposition+100, yposition+30, 10, 10, AssetLoader.bullet, 25, 100, angle, true);
-        	bulletlist.add(tempbullet);
+        	Rocket tempRocket = new Rocket (main, xposition+100, yposition+30, 30, 30, AssetLoader.Rocket, 25, 100, angle, true);
+        	Rocketlist.add(tempRocket);
         } else {
         	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Bullets tempbullet = new Bullets (main, xposition+10, yposition+50, 10, 10, AssetLoader.bullet, 25, 100, angle, false);
-        	bulletlist.add(tempbullet);
+        	Rocket tempRocket = new Rocket (main, xposition+10, yposition+50, 30, 30, AssetLoader.Rocket, 25, 100, angle, false);
+        	Rocketlist.add(tempRocket);
         }
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
         	  @Override
         	  public void run() {
-    			bulletlist.poll();
+    			Rocketlist.poll();
         	  }
     	}, 1000);
 	}
@@ -62,8 +59,8 @@ public class Bullets extends Projectile {
 	public void render(Graphics g) {
 		double width = this.width;
 		double height = this.height;
-		double testx = width / AssetLoader.bullet.getWidth();
-		double testy = height / AssetLoader.bullet.getHeight();
+		double testx = width / AssetLoader.Rocket.getWidth();
+		double testy = height / AssetLoader.Rocket.getHeight();
 		Graphics2D g2d = (Graphics2D) g;
 		AffineTransform at = new AffineTransform();
 		at.translate(this.xPos, this.yPos);

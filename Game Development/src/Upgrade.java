@@ -1,18 +1,12 @@
 
-public class Upgrade {
-
-	public Ability upgrade; // Ability that's being upgraded
-
-	public Upgrade(Ability ability) {
-		upgrade = ability;
+public abstract class Upgrade {
+	
+	Ability upgradedAbility;
+	
+	Upgrade(Ability upgrade) {
+		upgradedAbility = upgrade;
 	}
 	
-	public void setUpgrade(Ability ability) {
-		
-	}
-	
-	public void setUpgrade() {
-		
-	}
+	public abstract void runBehavior();
 
 }
