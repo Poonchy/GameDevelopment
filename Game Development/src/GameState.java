@@ -20,10 +20,10 @@ public class GameState extends State {
 		
 		character.update();
 		
-		for (Bullets b: Bullets.bulletlist) {
+		for (Bullets b: character.bulletlist) {
 			b.update();
 		}
-		for (Grenade g: Grenade.grenadelist) {
+		for (Grenade g: character.grenadelist) {
 			g.update();
 		}
 	}

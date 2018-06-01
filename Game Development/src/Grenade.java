@@ -9,12 +9,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Queue;
 
 public class Grenade extends Projectile {
-	public static Queue<Grenade> grenadelist = new ConcurrentLinkedQueue <Grenade>();
 	static BufferedImage grenade = ImageLoader.loadImage("res/textures/grenade.png");
 	private double angle;
 	private int yspeed;
 	public static int grenadecd = 3;
 	public static boolean isCharging;
+	
 	public Grenade(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left, int yspeed) {
 		super(main, x, y, width, height, image, speed, duration);
 		this.width = width;
@@ -35,17 +35,17 @@ public class Grenade extends Projectile {
 	        if (GameState.character.turnedLeft == true) {
 	        	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
 	        	Grenade tempbullet = new Grenade (main, xposition+100, yposition+30, 30, 30, grenade, 18, 30, angle, true, 25);
-	        	grenadelist.add(tempbullet);
+	        	Player.grenadelist.add(tempbullet);
 	        } else {
 	        	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
 	        	Grenade tempbullet = new Grenade (main, xposition+10, yposition+50, 30, 30, grenade, 18, 30, angle, false, 25);
-	        	grenadelist.add(tempbullet);
+	        	Player.grenadelist.add(tempbullet);
 	        }
 	        Timer timer = new Timer();
 	        timer.schedule(new TimerTask() {
 	        	  @Override
 	        	  public void run() {
-	    			grenadelist.poll();
+	    			Player.grenadelist.poll();
 	        	  }
 	    	}, 3000);
 	        grenadecd -= 1;

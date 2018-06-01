@@ -8,10 +8,8 @@ public class MenuState extends State{
 	public static Button startbtn;
 	public static Button endbtn;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private int windowWidth = (int) screenSize.getWidth();
-	private int windowHeight = (int) screenSize.getHeight();
-	private int btnxoffset = (windowWidth/2) - 100;
-	private int btnyoffset = (windowHeight/2) - 100;
+	private int btnxoffset = (main.windowWidth/2) - 100;
+	private int btnyoffset = (main.windowHeight/2) - 100;
 	
 	public MenuState(Main main) { 
 		super(main);

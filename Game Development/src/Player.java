@@ -3,8 +3,10 @@ import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Player extends Creature{
 	
@@ -16,11 +18,15 @@ public class Player extends Creature{
 	boolean turnedLeft = false;
 	public BufferedImage gunPic;
 	Grenada Grenada = new Grenada(image, 3000, 4, null);
+	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
+	public static Queue<Grenade> grenadelist = new ConcurrentLinkedQueue <Grenade>();
 	
 	public Player(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
 		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		abilities = new Ability[4];
 		upgrades = new ArrayList<Upgrade>();
+		
+		abilities[0] = Grenada;
 		
 	}
 
@@ -76,18 +82,8 @@ public class Player extends Creature{
 		}
 		
 		// Grenade behavior
-		if ((Grenade.grenadecd < 3) && (Grenade.isCharging == false)) {
-			Timer timer = new Timer();
-			Grenade.isCharging = true;
-	        timer.schedule(new TimerTask() {
-	        	  public void run() {
-	        		  Grenade.grenadecd += 1;
-	        		  Grenade.isCharging = false;
-	        	  }
-			}, 3000);
-		}
 		
-		Grenada.update();
+		abilities[0].update();
 		
 	}
 
@@ -95,13 +91,13 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		
 		g.drawImage(image, xPos, yPos, width, height, null);
-		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, AssetLoader.weapon);
-		Iterator<Bullets> iter = Bullets.bulletlist.iterator();
+		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunPic);
+		Iterator<Bullets> iter = bulletlist.iterator();
 		while(iter.hasNext()) {
 		  iter.next().render(g);
 		}
 		
-		Iterator<Grenade> giter = Grenade.grenadelist.iterator();
+		Iterator<Grenade> giter = grenadelist.iterator();
 		while(giter.hasNext()) {
 		  giter.next().render(g);
 		}

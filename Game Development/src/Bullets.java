@@ -9,9 +9,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Queue;
 
 public class Bullets extends Projectile {
-	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
 	static BufferedImage bullet = ImageLoader.loadImage("res/textures/bullet.png");
 	private double angle;
+	
 	public Bullets(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left) {
 		super(main, x, y, width, height, image, speed, duration);
 		this.width = width;
@@ -32,19 +32,19 @@ public class Bullets extends Projectile {
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
         	Bullets tempbullet = new Bullets (main, xposition+100, yposition+30, 10, 10, bullet, 25, 100, angle, true);
-        	bulletlist.add(tempbullet);
+        	Player.bulletlist.add(tempbullet);
         } else {
         	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
         	Bullets tempbullet = new Bullets (main, xposition+10, yposition+50, 10, 10, bullet, 25, 100, angle, false);
-        	bulletlist.add(tempbullet);
+        	Player.bulletlist.add(tempbullet);
         }
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
         	  @Override
         	  public void run() {
-    			bulletlist.poll();
+    			Player.bulletlist.poll();
         	  }
     	}, 1000);
 	}
