@@ -6,8 +6,8 @@ public abstract class Creature extends Entity{
 	public BufferedImage image;
 	public int health, speed, jump, baseDamage, attackSpeed;
 
-	public Creature(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
-		super(main, x, y, width, height);
+	public Creature(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height);
 		this.image = image;
 		this.health = health;
 		this.speed = speed;

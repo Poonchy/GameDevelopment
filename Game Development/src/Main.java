@@ -37,6 +37,10 @@ public class Main extends JFrame implements Runnable{
 	MouseTracker mouseTracker;
 	KeyTracker keyTracker;
 	
+	//Camera
+	public static int XOffSet;
+	public static int YOffSet;
+	
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.run();

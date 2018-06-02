@@ -5,15 +5,15 @@ public class Item extends Entity{
 	
 	public BufferedImage image;
 
-	public Item(Main main, int x, int y, int width, int height, BufferedImage image) {
-		super(main, x, y, width, height);
+	public Item(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height);
 		this.image = image;
 	}
 
 	@Override
 	public void update() {
-		
-		if(isCollected()) {
+		this.LocalX = this.GlobalX - Main.XOffSet;
+		if(Utility.checkCollision(this.LocalX, this.LocalY, this.width, this.height, GameState.defaultchar.LocalX, GameState.defaultchar.LocalY, GameState.defaultchar.width, GameState.defaultchar.height)) {
 			System.out.println("TOUCHING THE ITEM");
 			GameState.defaultchar.upgrades.add(Player.grenadaSplit);
 			GameState.items[0] = null;
@@ -23,21 +23,6 @@ public class Item extends Entity{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(image, xPos, yPos, width, height, null);
+		g.drawImage(image, LocalX, LocalY, width, height, null);
 	}
-	
-	
-	private boolean isCollected() {
-		if((((GameState.defaultchar.xPos + 100 >= this.xPos)
-				&&(GameState.defaultchar.xPos  <= (this.xPos + this.width)))
-				&&((GameState.defaultchar.yPos + GameState.defaultchar.height  >= this.yPos) 
-				&&(GameState.defaultchar.yPos + GameState.defaultchar.height  <= (this.yPos + this.height))))) 
-			{
-				return true;
-			}
-				return false;
-	}
-	
-	
-
 }

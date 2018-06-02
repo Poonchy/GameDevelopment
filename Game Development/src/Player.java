@@ -17,8 +17,8 @@ public class Player extends Creature{
 	public static Ability grenada;
 	public static Upgrade grenadaSplit;
  	
-	public Player(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
-		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
+	public Player(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		
 		grenada = new Grenada(image, 3000, 4, null);
 		
@@ -44,14 +44,18 @@ public class Player extends Creature{
 			}
 		}
 		if (KeyTracker.apressed == true) {
-			xPos -= GameState.defaultchar.speed;
-			gunxpos = xPos;
+			GlobalX -= GameState.defaultchar.speed;
+			Main.XOffSet -= GameState.defaultchar.speed;
+			LocalX = GlobalX - Main.XOffSet;
+			gunxpos = LocalX;
 		}
 		if (KeyTracker.spressed == true) {
 		}
 		if (KeyTracker.dpressed == true) {
-			xPos += GameState.defaultchar.speed;
-			gunxpos = xPos;
+			GlobalX += GameState.defaultchar.speed;
+			Main.XOffSet += GameState.defaultchar.speed;
+			LocalX = GlobalX  - Main.XOffSet;
+			gunxpos = LocalX;
 		}
 		
 		// Jumping Behavior
@@ -61,7 +65,7 @@ public class Player extends Creature{
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				yPos -= GameState.defaultchar.jump;
+				LocalY -= GameState.defaultchar.jump;
 			}
 			if (GameState.defaultchar.jump >-15) {
 				GameState.defaultchar.jump -= 1;
@@ -69,15 +73,15 @@ public class Player extends Creature{
 		}
 		
 		// Left and right image logic
-		if (mouseX - xPos - 50 < 0) {
+		if (mouseX - LocalX - 50 < 0) {
 			turnedLeft = true;
 		} else {
 			turnedLeft = false;
 		}
 		if (turnedLeft == true) {
 			image = AssetLoader.leftcapn;
-			gunxpos = xPos - 70;
-			gunypos = yPos + 40;
+			gunxpos = LocalX - 70;
+			gunypos = LocalY + 40;
 			if (KeyTracker.primaryWeapon) {
 				gunPic = AssetLoader.rocketlauncher;
 			} else {
@@ -85,8 +89,8 @@ public class Player extends Creature{
 			}
 		} else {
 			image = AssetLoader.capn;
-			gunxpos = xPos;
-			gunypos = yPos;
+			gunxpos = LocalX;
+			gunypos = LocalY;
 			if (KeyTracker.primaryWeapon) {
 				gunPic = AssetLoader.rocketlauncher;
 			} else {
@@ -112,7 +116,7 @@ public class Player extends Creature{
 	@Override
 	public void render(Graphics g) {
 		
-		g.drawImage(image, xPos, yPos, width, height, null);
+		g.drawImage(image, LocalX, LocalY, width, height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunPic);
 		
 		for (Bullets b: Bullets.bulletlist) {

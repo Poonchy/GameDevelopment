@@ -13,7 +13,7 @@ public class Protection extends Ability {
 		if (KeyTracker.onepressed) {
 			if (forcefieldUp == true) {
 			} else {
-				Forcefield.makeForcefield(GameState.ladycharacter.xPos, GameState.ladycharacter.yPos);
+				Forcefield.makeForcefield(GameState.ladycharacter.LocalX, GameState.ladycharacter.LocalY);
 				forcefieldUp = true;
 			}
 		} else {

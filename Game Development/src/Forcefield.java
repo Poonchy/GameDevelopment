@@ -10,11 +10,11 @@ public class Forcefield extends Projectile{
 	static BufferedImage forcefieldimg = ImageLoader.loadImage("res/textures/forcefield.png");
 	public static int forcefieldcd = 1;
 	public static boolean isCharging;
-	public Forcefield(Main main, int x, int y, int width, int height, BufferedImage image, int duration, int speed) {
-		super(main, x, y, width, height, image, speed, duration);
+	public Forcefield(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int duration, int speed) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, image, speed, duration);
 		this.width = width;
-		this.xPos = x;
-		this.yPos = y;
+		this.LocalX = LocalX;
+		this.LocalY = LocalY;
 		this.height = height;
 		this.image = image;
 		this.speed = speed;
@@ -23,7 +23,7 @@ public class Forcefield extends Projectile{
 	
 	public static void makeForcefield(int xposition, int yposition) {
 		if (forcefieldcd > 0) {
-			Forcefield forcefield = new Forcefield(main, GameState.ladycharacter.xPos-20, GameState.ladycharacter.yPos-20, 140, 140,  forcefieldimg, 5000, 0);
+			Forcefield forcefield = new Forcefield(main, GameState.ladycharacter.LocalY-20, GameState.ladycharacter.LocalY-20, GameState.ladycharacter.GlobalY-20, GameState.ladycharacter.GlobalY-20, 140, 140,  forcefieldimg, 5000, 0);
 			forcefieldlist.add(forcefield);
 	        Timer timer = new Timer();
 	        timer.schedule(new TimerTask() {
@@ -46,13 +46,15 @@ public class Forcefield extends Projectile{
 	
 	@Override
 	public void update() {
-		this.xPos = GameState.ladycharacter.xPos - 20;
-		this.yPos = GameState.ladycharacter.yPos - 20;
+		this.GlobalX = GameState.ladycharacter.GlobalX - 20;
+		this.GlobalY = GameState.ladycharacter.GlobalY - 20;
+		this.LocalX = this.GlobalX - Main.XOffSet;
+		this.LocalY = this.GlobalY - Main.YOffSet;
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(forcefieldimg, this.xPos, this.yPos, this.width, this.height, null);
+		g.drawImage(forcefieldimg, this.LocalX, this.LocalY, this.width, this.height, null);
 	}
 
 }

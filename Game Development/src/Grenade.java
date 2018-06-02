@@ -15,11 +15,11 @@ public class Grenade extends Projectile {
 	private int yspeed;
 	private boolean left;
 	
-	public Grenade( int x, int y, int width, int height, int speed, int duration, double angle, int yspeed, boolean left) {
-		super(main, x, y, width, height, AssetLoader.grenade, speed, duration);
+	public Grenade(int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, int speed, int duration, double angle, int yspeed, boolean left) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, AssetLoader.grenade, speed, duration);
 		this.width = width;
-		this.xPos = x;
-		this.yPos = y;
+		this.LocalX = LocalX;
+		this.LocalY = LocalY;
 		this.height = height;
 		this.speed = speed;
 		this.duration = duration;
@@ -34,11 +34,11 @@ public class Grenade extends Projectile {
 	        int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 	        if (GameState.defaultchar.turnedLeft == true) {
 	        	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
-	        	Grenade tempbullet = new Grenade ( xposition+100, yposition+30, 30, 30, 18, 30, angle, 25, true);
+	        	Grenade tempbullet = new Grenade (xposition+100 - Main.XOffSet, yposition+30 - Main.YOffSet, xposition+100, yposition+30, 30, 30, 18, 30, angle, 25, true);
 	        	grenadelist.add(tempbullet);
 	        } else {
 	        	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
-	        	Grenade tempbullet = new Grenade ( xposition+10, yposition+50, 30, 30, 18, 30, angle, 25, false);
+	        	Grenade tempbullet = new Grenade (xposition+10 - Main.XOffSet, yposition+50 - Main.YOffSet, xposition+10, yposition+50, 30, 30, 18, 30, angle, 25, false);
 	        	grenadelist.add(tempbullet);
 	        }
 	        Timer timer = new Timer();
@@ -58,11 +58,11 @@ public class Grenade extends Projectile {
 		if (Grenada.grenadecd > 0) {
 	        if (GameState.defaultchar.turnedLeft == true) {
 	        	double angle = -Math.atan2(distanceY, distanceX*-1);
-	        	Grenade tempbullet = new Grenade ( xposition+100, yposition+30, 30, 30, 18, 30, angle, 25, true);
+	        	Grenade tempbullet = new Grenade (xposition+100 - Main.XOffSet, yposition+30 - Main.YOffSet, xposition+100, yposition+30, 30, 30, 18, 30, angle, 25, true);
 	        	grenadelist.add(tempbullet);
 	        } else {
 	        	double angle = -Math.atan2(distanceY, distanceX);
-	        	Grenade tempbullet = new Grenade ( xposition+10, yposition+50, 30, 30, 18, 30, angle, 25, false);
+	        	Grenade tempbullet = new Grenade (xposition+10 - Main.XOffSet, yposition+50 - Main.YOffSet, xposition+10, yposition+50, 30, 30, 18, 30, angle, 25, false);
 	        	grenadelist.add(tempbullet);
 	        }
 	        Timer timer = new Timer();
@@ -79,9 +79,11 @@ public class Grenade extends Projectile {
 	
 	@Override
 	public void update() {
-		this.xPos += this.speed * Math.cos(this.angle);
+		this.GlobalX += this.speed * Math.cos(this.angle);
 		this.yspeed -= 1;
-		this.yPos -= this.yspeed;
+		this.GlobalY -= this.yspeed;
+		this.LocalX = this.GlobalX - Main.XOffSet;
+		this.LocalY = this.GlobalY - Main.YOffSet;
 	}
 	
 	@Override
@@ -92,7 +94,7 @@ public class Grenade extends Projectile {
 		double testy = height / image.getHeight();
 		Graphics2D g2d = (Graphics2D) g;
 		AffineTransform at = new AffineTransform();
-		at.translate(this.xPos, this.yPos);
+		at.translate(this.LocalX, this.LocalY);
 		if (this.left == true) {
 			at.rotate(-this.angle, 0, -10);
 		} else {
