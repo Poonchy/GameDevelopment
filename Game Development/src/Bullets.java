@@ -36,8 +36,8 @@ public class Bullets extends Projectile {
         	bulletlist.add(tempbullet);
         } else {
         	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
-        	//angle += Math.random() * .1;
-        	//angle -= Math.random() * .1;
+        	angle += Math.random() * .1;
+        	angle -= Math.random() * .1;
         	Bullets tempbullet = new Bullets (main, xposition+10, yposition+50, xposition+10, yposition+50, 10, 10, AssetLoader.bullet, 10, 100, angle, false);
         	bulletlist.add(tempbullet);
         }
