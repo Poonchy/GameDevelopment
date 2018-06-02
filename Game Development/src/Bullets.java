@@ -55,7 +55,7 @@ public class Bullets extends Projectile {
 	public void update() {
 		this.GlobalX += this.speed * Math.cos(this.angle);
 		this.GlobalY -= this.speed * Math.sin(this.angle);
-		this.LocalX = this.GlobalX - Main.XOffSet;
+		this.LocalX = this.GlobalX;
 		this.LocalY = this.GlobalY;
 	}
 	
