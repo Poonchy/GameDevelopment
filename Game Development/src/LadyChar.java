@@ -29,16 +29,16 @@ public class LadyChar extends Creature{
 			if (isJumping == false) {
 				isJumping = true;
 			}
-		}
+		} else
 		if (KeyTracker.apressed == true) {
-			LocalX -= GameState.ladycharacter.speed;
-			gunxpos = LocalX;
-		}
+			GameState.ladycharacter.speed = -10;
+		} else
 		if (KeyTracker.spressed == true) {
-		}
+		} else
 		if (KeyTracker.dpressed == true) {
-			LocalX += GameState.ladycharacter.speed;
-			gunxpos = LocalX;
+			GameState.ladycharacter.speed = 10;
+		} else {
+			GameState.ladycharacter.speed = 0;
 		}
 		
 		// Jumping Behavior
@@ -87,6 +87,11 @@ public class LadyChar extends Creature{
 		for (Forcefield g: Forcefield.forcefieldlist) {
 			g.update();
 		}
+		
+		GlobalX += GameState.ladycharacter.speed;
+		Main.XOffSet += GameState.ladycharacter.speed;
+		LocalX = GlobalX  - Main.XOffSet;
+		gunxpos = LocalX;
 		
 		forcefield.update();
 		

@@ -42,20 +42,16 @@ public class Player extends Creature{
 			if (isJumping == false) {
 				isJumping = true;
 			}
-		}
+		} else
 		if (KeyTracker.apressed == true) {
-			GlobalX -= GameState.defaultchar.speed;
-			Main.XOffSet -= GameState.defaultchar.speed;
-			LocalX = GlobalX - Main.XOffSet;
-			gunxpos = LocalX;
-		}
+			GameState.defaultchar.speed = -10;
+		} else
 		if (KeyTracker.spressed == true) {
-		}
+		} else
 		if (KeyTracker.dpressed == true) {
-			GlobalX += GameState.defaultchar.speed;
-			Main.XOffSet += GameState.defaultchar.speed;
-			LocalX = GlobalX  - Main.XOffSet;
-			gunxpos = LocalX;
+			GameState.defaultchar.speed = 10;
+		} else {
+			GameState.defaultchar.speed = 0;
 		}
 		
 		// Jumping Behavior
@@ -107,6 +103,11 @@ public class Player extends Creature{
 		for (Grenade g: Grenade.grenadelist) {
 			g.update();
 		}
+		
+		GlobalX += GameState.defaultchar.speed;
+		Main.XOffSet += GameState.defaultchar.speed;
+		LocalX = GlobalX  - Main.XOffSet;
+		gunxpos = LocalX;
 		
 		// Grenade behavior
 		grenada.update();
