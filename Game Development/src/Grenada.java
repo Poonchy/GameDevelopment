@@ -25,6 +25,7 @@ public class Grenada extends Ability {
 	
 	@Override
 	public void update() {
+		
 		if (KeyTracker.onepressed) {
 			
 			if (grenadeTossed == true) {
@@ -33,7 +34,7 @@ public class Grenada extends Ability {
 					Grenade.makeGrenade(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
 					grenadeTossed = true;	
 				}else {
-					GameState.defaultchar.grenadaSplit.runBehavior();
+					Player.grenadaSplit.runBehavior();
 					System.out.println("THROW UPGRADED GRENADE");
 				}
 				

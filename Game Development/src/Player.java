@@ -2,8 +2,6 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Player extends Creature{
 	
@@ -16,7 +14,7 @@ public class Player extends Creature{
 	public BufferedImage gunPic;
 	public static Ability grenada;
 	public static Upgrade grenadaSplit;
- 	
+
 	public Player(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
 		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		
@@ -31,6 +29,8 @@ public class Player extends Creature{
 		grenadaSplit = new GrenadaSplit();
 		
 		upgrades = new ArrayList<Upgrade>();
+		
+		abilities[0] = grenada;
 		
 	}
 
@@ -115,7 +115,7 @@ public class Player extends Creature{
 
 	@Override
 	public void render(Graphics g) {
-		
+
 		g.drawImage(image, LocalX, LocalY, width, height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunPic);
 		

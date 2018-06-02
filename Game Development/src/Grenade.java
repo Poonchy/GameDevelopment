@@ -2,7 +2,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -13,6 +12,8 @@ public class Grenade extends Projectile {
 	public static Queue<Grenade> grenadelist = new ConcurrentLinkedQueue <Grenade>();
 	private double angle;
 	private int yspeed;
+	public static int grenadecd = 3;
+	public static boolean isCharging;
 	private boolean left;
 	
 	public Grenade(int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, int speed, int duration, double angle, int yspeed, boolean left) {

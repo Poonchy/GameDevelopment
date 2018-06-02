@@ -10,6 +10,7 @@ import java.util.Queue;
 
 
 public class Bullets extends Projectile {
+
 	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
 	private double angle;
 	
