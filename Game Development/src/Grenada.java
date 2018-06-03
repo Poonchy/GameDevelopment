@@ -31,7 +31,7 @@ public class Grenada extends Ability {
 			if (grenadeTossed == true) {
 			} else {
 				if(GameState.defaultchar.upgrades.isEmpty()) {
-					Grenade.makeGrenade(GameState.defaultchar.gunxpos + Main.XOffSet, GameState.defaultchar.gunypos + Main.YOffSet);
+					Grenade.makeGrenade(GameState.defaultchar.GlobalX, GameState.defaultchar.GlobalY);
 					grenadeTossed = true;	
 				}else {
 					Player.grenadaSplit.runBehavior();

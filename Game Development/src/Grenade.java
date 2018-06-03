@@ -34,11 +34,11 @@ public class Grenade extends Projectile {
 			int mouseY = MouseInfo.getPointerInfo().getLocation().y;
 	        int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 	        if (GameState.defaultchar.turnedLeft == true) {
-	        	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
+	        	double angle = -Math.atan2(mouseY - (yposition-25 - Main.YOffSet), mouseX - (xposition-100 - Main.XOffSet));
 	        	Grenade tempbullet = new Grenade (xposition+100 - Main.XOffSet, yposition+30 - Main.YOffSet, xposition+100, yposition+30, 30, 30, 18, 30, angle, 25, true);
 	        	grenadelist.add(tempbullet);
 	        } else {
-	        	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
+	        	double angle = -Math.atan2(mouseY - (yposition-45  - Main.YOffSet), mouseX - (xposition-50 - Main.XOffSet));
 	        	Grenade tempbullet = new Grenade (xposition+10 - Main.XOffSet, yposition+50 - Main.YOffSet, xposition+10, yposition+50, 30, 30, 18, 30, angle, 25, false);
 	        	grenadelist.add(tempbullet);
 	        }

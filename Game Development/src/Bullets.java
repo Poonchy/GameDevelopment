@@ -42,7 +42,7 @@ public class Bullets extends Projectile {
         	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX + 110, yposition+30, 10, 10, AssetLoader.bullet, 10, 100, angle, false);
+        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX + 110, yposition+30, 10, 10, AssetLoader.bullet, 25, 100, angle, false);
         	bulletlist.add(tempbullet);
         }
         Timer timer = new Timer();
