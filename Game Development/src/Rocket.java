@@ -23,20 +23,20 @@ public class Rocket extends Projectile {
 		this.angle = angle;
 	}
 	
-	public static void makeRocket(int LocalXition, int LocalYition) {
+	public static void makeRocket(int xposition, int yposition) {
 		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
         int mouseX = MouseInfo.getPointerInfo().getLocation().x;
         if (GameState.defaultchar.turnedLeft == true) {
-        	double angle = -Math.atan2(mouseY - LocalYition-25, mouseX - LocalXition-100);
+        	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Rocket tempRocket = new Rocket (main, LocalXition+100 - Main.XOffSet, LocalYition+30 - Main.YOffSet, LocalXition+100, LocalYition+30, 30, 30, AssetLoader.Rocket, 25, 100, angle, true);
+        	Rocket tempRocket = new Rocket (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX, yposition+30, 50, 50, AssetLoader.Rocket, 40, 100, angle, true);
         	Rocketlist.add(tempRocket);
         } else {
-        	double angle = -Math.atan2(mouseY - LocalYition-45, mouseX - LocalXition-50);
+        	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Rocket tempRocket = new Rocket (main, LocalXition+10 - Main.XOffSet, LocalYition+50 - Main.YOffSet, LocalXition+10, LocalYition+50, 30, 30, AssetLoader.Rocket, 25, 100, angle, false);
+        	Rocket tempRocket = new Rocket (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX + 110, yposition+30, 50, 50, AssetLoader.Rocket, 40, 100, angle, false);
         	Rocketlist.add(tempRocket);
         }
         Timer timer = new Timer();
@@ -51,8 +51,10 @@ public class Rocket extends Projectile {
 	
 	@Override
 	public void update() {
-		this.LocalX += this.speed * Math.cos(this.angle);
-		this.LocalY -= this.speed * Math.sin(this.angle);
+		this.GlobalX += this.speed * Math.cos(this.angle);
+		this.GlobalY -= this.speed * Math.sin(this.angle);
+		this.LocalX = this.GlobalX - Main.XOffSet;
+		this.LocalY = this.GlobalY;
 	}
 	
 	@Override

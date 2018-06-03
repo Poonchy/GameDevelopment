@@ -48,8 +48,8 @@ public class Forcefield extends Projectile{
 	public void update() {
 		this.GlobalX = GameState.ladycharacter.GlobalX - 20;
 		this.GlobalY = GameState.ladycharacter.GlobalY - 20;
-		this.LocalX = this.GlobalX - Main.XOffSet;
-		this.LocalY = this.GlobalY - Main.YOffSet;
+		this.LocalX = GameState.ladycharacter.LocalX - 20;
+		this.LocalY = GameState.ladycharacter.LocalY - 20;
 	}
 	
 	@Override
