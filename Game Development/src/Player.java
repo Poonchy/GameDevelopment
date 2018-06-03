@@ -94,6 +94,13 @@ public class Player extends Creature{
 			}
 		}
 		
+		// Global and Local position updates (VERY IMPORTANT)
+		GlobalX += GameState.defaultchar.speed;
+		Main.XOffSet += GameState.defaultchar.speed;
+		LocalX = GlobalX  - Main.XOffSet;
+		gunxpos = LocalX;
+		
+		//Update player's projectile
 		for (Bullets b: Bullets.bulletlist) {
 			b.update();
 		}
@@ -103,11 +110,6 @@ public class Player extends Creature{
 		for (Grenade g: Grenade.grenadelist) {
 			g.update();
 		}
-		
-		GlobalX += GameState.defaultchar.speed;
-		Main.XOffSet += GameState.defaultchar.speed;
-		LocalX = GlobalX  - Main.XOffSet;
-		gunxpos = LocalX;
 		
 		// Grenade behavior
 		grenada.update();
