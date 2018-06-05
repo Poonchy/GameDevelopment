@@ -37,6 +37,9 @@ public class Main extends JFrame implements Runnable{
 	MouseTracker mouseTracker;
 	KeyTracker keyTracker;
 	
+	//Camera
+	public static int xOffset = 0, yOffset = 0;
+	
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.run();
@@ -151,4 +154,6 @@ public class Main extends JFrame implements Runnable{
 		}// GAME LOOP 
 		setVisible(false); 
 	} // run
+	
+	
 } // class

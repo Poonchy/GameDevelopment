@@ -23,15 +23,15 @@ public class Item extends Entity{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(image, xPos, yPos, width, height, null);
+		g.drawImage(image, xPos - Main.xOffset, yPos - Main.yOffset, width, height, null);
 	}
 	
 	
 	private boolean isCollected() {
-		if((((GameState.defaultchar.xPos + 100 >= this.xPos)
-				&&(GameState.defaultchar.xPos  <= (this.xPos + this.width)))
-				&&((GameState.defaultchar.yPos + GameState.defaultchar.height  >= this.yPos) 
-				&&(GameState.defaultchar.yPos + GameState.defaultchar.height  <= (this.yPos + this.height))))) 
+		if((((GameState.defaultchar.xPos + 100 >= this.xPos - Main.xOffset)
+				&&(GameState.defaultchar.xPos  <= (this.xPos + this.width - Main.xOffset)))
+				&&((GameState.defaultchar.yPos + GameState.defaultchar.height  >= this.yPos - Main.yOffset) 
+				&&(GameState.defaultchar.yPos + GameState.defaultchar.height  <= (this.yPos + this.height - Main.yOffset))))) 
 			{
 				return true;
 			}

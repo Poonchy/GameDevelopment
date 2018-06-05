@@ -43,14 +43,18 @@ public class Player extends Creature{
 			}
 		}
 		if (KeyTracker.apressed == true) {
-			xPos -= GameState.defaultchar.speed;
+			//xPos -= GameState.defaultchar.speed; /*- Main.xOffset; */
 			gunxpos = xPos;
+			Main.xOffset += -this.speed*2;
+			//System.out.println(""+Main.xOffset);
 		}
 		if (KeyTracker.spressed == true) {
 		}
 		if (KeyTracker.dpressed == true) {
-			xPos += GameState.defaultchar.speed;
+			//xPos += GameState.defaultchar.speed; /*- Main.xOffset; */
 			gunxpos = xPos;
+			Main.xOffset += this.speed*2;
+			//System.out.println(""+Main.xOffset);	
 		}
 		
 		// Jumping Behavior
@@ -60,7 +64,8 @@ public class Player extends Creature{
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				yPos -= GameState.defaultchar.jump;
+				//yPos -= GameState.defaultchar.jump;
+				Main.yOffset += -this.jump*2;
 			}
 			if (GameState.defaultchar.jump >-15) {
 				GameState.defaultchar.jump -= 1;

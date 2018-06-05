@@ -33,7 +33,7 @@ public class Grenada extends Ability {
 				if(GameState.defaultchar.upgrades.isEmpty()) {
 					Grenade.makeGrenade(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
 					grenadeTossed = true;	
-				}else {
+				}else { // Use upgraded version
 					GameState.defaultchar.grenadaSplit.runBehavior();
 					System.out.println("THROW UPGRADED GRENADE");
 				}
