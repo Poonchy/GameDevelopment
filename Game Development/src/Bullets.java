@@ -13,12 +13,15 @@ public class Bullets extends Projectile {
 
 	public static Queue<Bullets> bulletlist = new ConcurrentLinkedQueue <Bullets>();
 	private double angle;
+	private int original;
 	
-	public Bullets(Main main, int x, int y, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left) {
-		super(main, x, y, width, height, image, speed, duration);
+	public Bullets(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int speed, int duration, double angle, boolean left) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, image, speed, duration);
 		this.width = width;
-		this.xPos = x;
-		this.yPos = y;
+		this.LocalX = LocalX;
+		this.LocalY = LocalY;
+		this.GlobalX = GlobalX;
+		this.GlobalY = GlobalY;
 		this.height = height;
 		this.image = image;
 		this.speed = speed;
@@ -33,13 +36,13 @@ public class Bullets extends Projectile {
         	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Bullets tempbullet = new Bullets (main, xposition+100, yposition+30, 10, 10, AssetLoader.bullet, 25, 100, angle, true);
+        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX, yposition+30, 10, 10, AssetLoader.bullet, 25, 100, angle, true);
         	bulletlist.add(tempbullet);
         } else {
         	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Bullets tempbullet = new Bullets (main, xposition+10, yposition+50, 10, 10, AssetLoader.bullet, 25, 100, angle, false);
+        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX + 110, yposition+30, 10, 10, AssetLoader.bullet, 25, 100, angle, false);
         	bulletlist.add(tempbullet);
         }
         Timer timer = new Timer();
@@ -54,8 +57,10 @@ public class Bullets extends Projectile {
 	
 	@Override
 	public void update() {
-		this.xPos += this.speed * Math.cos(this.angle);
-		this.yPos -= this.speed * Math.sin(this.angle);
+		this.GlobalX += this.speed * Math.cos(this.angle);
+		this.GlobalY -= this.speed * Math.sin(this.angle);
+		this.LocalX = this.GlobalX - Main.XOffSet;
+		this.LocalY = this.GlobalY;
 	}
 	
 	@Override
@@ -66,7 +71,7 @@ public class Bullets extends Projectile {
 		double testy = height / AssetLoader.bullet.getHeight();
 		Graphics2D g2d = (Graphics2D) g;
 		AffineTransform at = new AffineTransform();
-		at.translate(this.xPos, this.yPos);
+		at.translate(this.LocalX, this.LocalY);
 		if (GameState.defaultchar.turnedLeft == true) {
 			at.rotate(-this.angle, 0, -10);
 		} else {

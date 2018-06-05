@@ -3,14 +3,16 @@ import java.awt.Graphics;
 public abstract class Entity {
 	
 	public static Main main;
-	public int xPos, yPos, height, width;
+	public int LocalX, LocalY, GlobalX, GlobalY, height, width;
 	
 	
 	@SuppressWarnings("static-access")
-	public Entity(Main main, int x, int y, int width, int height) {
+	public Entity(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height) {
 		this.main = main;
-		xPos = x;
-		yPos = y;
+		this.LocalX = LocalX;
+		this.LocalY = LocalY;
+		this.GlobalX = GlobalX;
+		this.GlobalY = GlobalY;
 		this.width = width;
 		this.height = height;
 	}

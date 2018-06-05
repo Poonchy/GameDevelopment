@@ -38,7 +38,8 @@ public class Main extends JFrame implements Runnable{
 	KeyTracker keyTracker;
 	
 	//Camera
-	public static int xOffset = 0, yOffset = 0;
+	public static int XOffSet;
+	public static int YOffSet;
 	
 	public static void main(String[] args) {
 		Main main = new Main();
