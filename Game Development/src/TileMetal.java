@@ -1,7 +1,7 @@
 public class TileMetal extends Tile {
 
 	public TileMetal(int id) {
-		super(AssetLoader.bullet, id);
+		super(AssetLoader.metal, id);
 		
 	}
 	

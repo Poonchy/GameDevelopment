@@ -38,17 +38,17 @@ public class Player extends Creature{
 	public void update() {
 		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 		// WASD Movement
-		if (KeyTracker.wpressed == true) {
+		if (KeyTracker.spacePressed == true) {
 			if (isJumping == false) {
 				isJumping = true;
 			}
 		} else
-		if (KeyTracker.apressed == true) {
+		if (KeyTracker.aPressed == true) {
 			GameState.defaultchar.speed = -10;
 		} else
-		if (KeyTracker.spressed == true) {
+		if (KeyTracker.sPressed == true) {
 		} else
-		if (KeyTracker.dpressed == true) {
+		if (KeyTracker.dPressed == true) {
 			GameState.defaultchar.speed = 10;
 		} else {
 			GameState.defaultchar.speed = 0;
@@ -56,16 +56,20 @@ public class Player extends Creature{
 		
 		// Jumping Behavior
 		if (isJumping == true) {
-			if (GameState.defaultchar.jump <= -15) {
-				GameState.defaultchar.jump = 15;
+			/*if (GameState.defaultchar.jumpHeight <= -15) {
+				GameState.defaultchar.jumpHeight = 15;
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				LocalY -= GameState.defaultchar.jump;
+				LocalY -= GameState.defaultchar.jumpHeight;
 			}
-			if (GameState.defaultchar.jump >-15) {
-				GameState.defaultchar.jump -= 1;
-			}
+			if (GameState.defaultchar.jumpHeight >-15) {
+				GameState.defaultchar.jumpHeight -= 1;
+			} */
+			
+			this.GlobalY -= this.jumpHeight;
+			Main.YOffSet -= this.jumpHeight;
+			isJumping = false;
 		}
 		
 		// Left and right image logic
@@ -95,10 +99,17 @@ public class Player extends Creature{
 		}
 		
 		// Global and Local position updates (VERY IMPORTANT)
+		//x
 		GlobalX += GameState.defaultchar.speed;
 		Main.XOffSet += GameState.defaultchar.speed;
 		LocalX = GlobalX  - Main.XOffSet;
 		gunxpos = LocalX;
+		
+		//y
+		GlobalY += 10;
+		Main.YOffSet += 10;
+		LocalY = GlobalY  - Main.YOffSet;
+		gunypos = LocalY;
 		
 		//Update player's projectile
 		for (Bullets b: Bullets.bulletlist) {

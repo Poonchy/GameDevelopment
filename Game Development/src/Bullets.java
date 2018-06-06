@@ -33,16 +33,16 @@ public class Bullets extends Projectile {
 		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
         int mouseX = MouseInfo.getPointerInfo().getLocation().x;
         if (GameState.defaultchar.turnedLeft == true) {
-        	double angle = -Math.atan2(mouseY - yposition-25, mouseX - xposition-100);
+        	double angle = -Math.atan2(mouseY - GameState.activePlayer.LocalY, mouseX - GameState.activePlayer.LocalX);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX, yposition+30, 10, 10, AssetLoader.bullet, 25, 100, angle, true);
+        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX, GameState.activePlayer.LocalY, GameState.activePlayer.GlobalX, GameState.activePlayer.GlobalY, 10, 10, AssetLoader.bullet, 25, 100, angle, true);
         	bulletlist.add(tempbullet);
         } else {
         	double angle = -Math.atan2(mouseY - yposition-45, mouseX - xposition-50);
         	angle += Math.random() * .1;
         	angle -= Math.random() * .1;
-        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX, yposition+30 - Main.YOffSet, GameState.activePlayer.GlobalX + 110, yposition+30, 10, 10, AssetLoader.bullet, 25, 100, angle, false);
+        	Bullets tempbullet = new Bullets (main, GameState.activePlayer.LocalX,GameState.activePlayer.LocalY, GameState.activePlayer.GlobalX, GameState.activePlayer.GlobalY, 10, 10, AssetLoader.bullet, 25, 100, angle, false);
         	bulletlist.add(tempbullet);
         }
         Timer timer = new Timer();
@@ -60,7 +60,7 @@ public class Bullets extends Projectile {
 		this.GlobalX += this.speed * Math.cos(this.angle);
 		this.GlobalY -= this.speed * Math.sin(this.angle);
 		this.LocalX = this.GlobalX - Main.XOffSet;
-		this.LocalY = this.GlobalY;
+		this.LocalY = this.GlobalY - Main.YOffSet;
 	}
 	
 	@Override

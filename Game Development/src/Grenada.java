@@ -26,7 +26,7 @@ public class Grenada extends Ability {
 	@Override
 	public void update() {
 		
-		if (KeyTracker.onepressed) {
+		if (KeyTracker.onePressed) {
 			
 			if (grenadeTossed == true) {
 			} else {

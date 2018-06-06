@@ -24,6 +24,8 @@ public class AssetLoader {
     public static BufferedImage mainmenuart = ImageLoader.loadImage("/textures/menuart.jpg");
     public static BufferedImage leftwarrior = ImageLoader.loadImage("/textures/warriorleft.png");
     public static BufferedImage warrior = ImageLoader.loadImage("/textures/warrior.png");
+    public static BufferedImage dirt = ImageLoader.loadImage("/textures/dirtTile.png");
+    public static BufferedImage metal = ImageLoader.loadImage("/textures/metalTile.jpg");
     
     
     

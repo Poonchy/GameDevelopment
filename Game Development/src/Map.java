@@ -5,11 +5,11 @@ public class Map {
 	private Main main;
 	private int width, height; // Width and height of map in terms of tiles
 	public int spawnX, spawnY;
-	private int[][] tiles;
+	private int[][] tilesArr;
 	
 	public Map(Main main, String path){
-		loadMap(path);
 		this.main = main;
+		loadMap(path);
 	}
 	
 	public void update(){
@@ -18,14 +18,14 @@ public class Map {
 	}
 	
 	public void render(Graphics g){
-		int xStart = (int)Math.max(0, Main.XOffSet) / Tile.TILE_WIDTH;
-		int xEnd = (int)Math.min(width, (Main.XOffSet + main.windowWidth) / Tile.TILE_WIDTH + 1);
-		int yStart = (int)Math.max(0, Main.YOffSet / Tile.TILE_HEIGHT);
-		int yEnd = (int)Math.min(height, (Main.YOffSet + main.windowHeight) / Tile.TILE_HEIGHT + 1);
+		//int xStart = (int)Math.max(0, Main.XOffSet) / Tile.TILE_WIDTH;
+		//int xEnd = (int)Math.min(width, (Main.XOffSet + main.windowWidth) / Tile.TILE_WIDTH + 1);
+		//int yStart = (int)Math.max(0, Main.YOffSet / Tile.TILE_HEIGHT);
+		//int yEnd = (int)Math.min(height, (Main.YOffSet + main.windowHeight) / Tile.TILE_HEIGHT + 1);
 		
-		for(int y = yStart; y < yEnd; y++){
-			for(int x = xStart; x < xEnd; x++){
-				getTile(x, y).render(g, (int) (x * Tile.TILE_WIDTH), (int) (y*Tile.TILE_HEIGHT) );
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
+				getTile(x, y).render(g, (int) (x * Tile.TILE_WIDTH - Main.XOffSet), (int) (y*Tile.TILE_HEIGHT - Main.YOffSet) - ((height*Tile.TILE_HEIGHT) - main.windowHeight) );
 			}
 		}
 		
@@ -38,7 +38,7 @@ public class Map {
 			return Tile.dirt;
 		}
 		
-		Tile t = Tile.tileType[tiles[x][y]];
+		Tile t = Tile.tileType[tilesArr[x][y]];
 		if (t == null){
 			return Tile.air;
 		}
@@ -53,22 +53,14 @@ public class Map {
 		spawnX = Utility.parseInt(tokens[2]);
 		spawnY = Utility.parseInt(tokens[3]);
 		
-		tiles = new int[width][height];
+		tilesArr = new int[width][height];
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
-				tiles[x][y] = Utility.parseInt(tokens[(x + y * width) + 4 ]);
+				tilesArr[x][y] = Utility.parseInt(tokens[(x + y * width) + 4 ]);
 			}
 		}
 		
 	}
 	
 	
-	
-	public int getWidth(){
-		return width;
-	}
-	
-	public int getHeight(){
-		return height;
-	}
 }
