@@ -1,6 +1,8 @@
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class Player extends Creature{
@@ -15,7 +17,7 @@ public class Player extends Creature{
 	public static Ability grenada;
 	public static Upgrade grenadaSplit;
 
-	public Player(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
+	public Player(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) throws IOException, URISyntaxException {
 		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		
 		grenada = new Grenada(image, 3000, 4, null);

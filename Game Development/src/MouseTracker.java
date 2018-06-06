@@ -2,6 +2,8 @@ import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -142,7 +144,13 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	    public void run() {
 	    	if (!shooting) {
 	    		Bullets.makeBullet(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
-	        }
+	    		try {
+					AssetLoader.music();
+				} catch (IOException | URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	}
 	    	shooting = true;
 	    	Timer timer = new Timer();
 	        timer.schedule(new TimerTask() {

@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 
@@ -47,7 +49,7 @@ public class Main extends JFrame implements Runnable{
 		System.exit(0);
 	}
 	
-	public void initialize() {
+	public void initialize() throws IOException, URISyntaxException {
 				
 	//Window stuff
 		setTitle("Some Game Thing"); 
@@ -121,7 +123,15 @@ public class Main extends JFrame implements Runnable{
 
 	@Override
 	public void run() {
-		initialize();
+		try {
+			initialize();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		long fpsTimer = System.currentTimeMillis();
 		
 		while(isRunning) { // updates, 

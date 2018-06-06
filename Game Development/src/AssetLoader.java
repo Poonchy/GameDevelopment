@@ -1,6 +1,11 @@
 import java.awt.image.BufferedImage;
+import sun.audio.*;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 
-public class AssetLoader {
+
+public class AssetLoader{
 	
 	static int buttonwidth = 445;
 	static int buttonheight = 179;
@@ -25,7 +30,15 @@ public class AssetLoader {
     public static BufferedImage leftwarrior = ImageLoader.loadImage("res/textures/warriorleft.png");
     public static BufferedImage warrior = ImageLoader.loadImage("res/textures/warrior.png");
     
-    
+    //Sounds
+    static Main main = new Main();
+    public static void music() throws IOException, URISyntaxException {
+    	InputStream SMGFire;
+    	URL url = main.getClass().getResource("res/sounds/machinegun.wav");
+    	SMGFire = new FileInputStream(new File(url.toURI()));
+    	AudioStream Audio = new AudioStream(SMGFire);
+    	AudioPlayer.player.start(Audio);
+    }
     
 	public static void init(){
 		/*int buttonwidth = 445;

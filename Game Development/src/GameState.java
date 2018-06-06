@@ -1,4 +1,6 @@
 import java.awt.Graphics;
+import java.io.IOException;
+import java.net.URISyntaxException;
 public class GameState extends State {
 	Main main;
 	public static LadyChar ladycharacter;
@@ -10,7 +12,7 @@ public class GameState extends State {
 	public static Item[] items = new Item[256];
 	public static Creature activePlayer;
 	
-	public GameState(Main main) {
+	public GameState(Main main) throws IOException, URISyntaxException {
 		super(main);
 		ladycharacter = new LadyChar(main, 10, main.windowHeight - 100, 10, main.windowHeight - 100, 100, 100, AssetLoader.lady, 4, 4, -15, 4, 4);
 		defaultchar = new Player(main, 10, main.windowHeight - 100, 10, main.windowHeight - 100, 100, 100, AssetLoader.capn, 4, 4, -15, 4, 4);
