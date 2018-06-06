@@ -25,33 +25,33 @@ public class Warrior extends Creature{
 	public void update() {
 		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 		// WASD Movement
-		if (KeyTracker.wpressed == true) {
+		if (KeyTracker.spacePressed == true) {
 			if (isJumping == false) {
 				isJumping = true;
 			}
 		}
-		if (KeyTracker.apressed == true) {
+		if (KeyTracker.aPressed == true) {
 			LocalX -= GameState.ladycharacter.speed;
 			gunxpos = LocalX;
 		}
-		if (KeyTracker.spressed == true) {
+		if (KeyTracker.sPressed == true) {
 		}
-		if (KeyTracker.dpressed == true) {
+		if (KeyTracker.dPressed == true) {
 			LocalX += GameState.ladycharacter.speed;
 			gunxpos = LocalX;
 		}
 		
 		// Jumping Behavior
 		if (isJumping == true) {
-			if (GameState.ladycharacter.jump <= -15) {
-				GameState.ladycharacter.jump = 15;
+			if (GameState.ladycharacter.jumpHeight <= -15) {
+				GameState.ladycharacter.jumpHeight = 15;
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				LocalY -= GameState.ladycharacter.jump;
+				LocalY -= GameState.ladycharacter.jumpHeight;
 			}
-			if (GameState.ladycharacter.jump >-15) {
-				GameState.ladycharacter.jump -= 1;
+			if (GameState.ladycharacter.jumpHeight >-15) {
+				GameState.ladycharacter.jumpHeight -= 1;
 			}
 		}
 		

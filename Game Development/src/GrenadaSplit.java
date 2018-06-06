@@ -11,14 +11,14 @@ public class GrenadaSplit extends Upgrade {
 	@Override
 	public void runBehavior() {
 		if(Grenada.grenadecd >0) {
-			makeGrenade(GameState.defaultchar.GlobalX, GameState.defaultchar.GlobalY);
+			makeSplitGrenade(GameState.defaultchar.GlobalX, GameState.defaultchar.GlobalY);
 			Grenada.grenadeTossed = true;
 			Grenada.grenadecd -= 1;
 		}
 		
 	}
 	
-	public static void makeGrenade(int xposition, int yposition) {
+	public static void makeSplitGrenade(int xposition, int yposition) {
 		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
 	    int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 	    if (GameState.defaultchar.turnedLeft == true) {

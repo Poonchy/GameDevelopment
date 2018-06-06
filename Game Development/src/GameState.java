@@ -11,6 +11,7 @@ public class GameState extends State {
 	public static Item grenadaUpg1;
 	public static Item[] items = new Item[256];
 	public static Creature activePlayer;
+	public Map map;
 	
 	public GameState(Main main) throws IOException, URISyntaxException {
 		super(main);
@@ -19,9 +20,13 @@ public class GameState extends State {
 		warrior = new Warrior(main, 10, main.windowHeight, 10, main.windowHeight, 100, 100, AssetLoader.warrior, 4, 4, -15, 4, 4);
 		grenadaUpg1 = new Item(main, main.windowWidth/2, main.windowHeight - 40, main.windowWidth/2, main.windowHeight - 40, 100, 40, AssetLoader.grenade);
 		items[0] = grenadaUpg1;
+		
+		map = new Map(main, "res/maps/map1.txt");
 	}
 	
 	public void update() {
+		map.update();
+
 		if (whichChar == "Default") {
 			defaultchar.update();
 			activePlayer = defaultchar;
@@ -36,10 +41,13 @@ public class GameState extends State {
 		if(items[0] != null) {
 			items[0].update();
 		}
-
+		
 	}
 	
 	public void render(Graphics g) {
+		
+		map.render(g);
+		
 		if (whichChar == "Default") {
 			defaultchar.render(g);
 		} else if (whichChar == "Mlady") {
@@ -51,6 +59,8 @@ public class GameState extends State {
 		if(items[0] != null) {
 			items[0].render(g);
 		}
+		
 	}
+	
 	
 }

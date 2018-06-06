@@ -40,8 +40,8 @@ public class Main extends JFrame implements Runnable{
 	KeyTracker keyTracker;
 	
 	//Camera
-	public static int XOffSet;
-	public static int YOffSet;
+	public static int XOffSet = 0;
+	public static int YOffSet = 0;
 	
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -60,7 +60,7 @@ public class Main extends JFrame implements Runnable{
 		setVisible(true);
 		isRunning = true;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image cursorImage = ImageLoader.loadImage("/res/textures/reticle.png");
+		Image cursorImage = ImageLoader.loadImage("/textures/reticle.png");
 		Point cursorHotSpot = new Point(15,15);
 		Cursor customCursor = toolkit.createCustomCursor(cursorImage, cursorHotSpot, "Cursor");
 		setCursor(customCursor);
@@ -165,4 +165,6 @@ public class Main extends JFrame implements Runnable{
 		}// GAME LOOP 
 		setVisible(false); 
 	} // run
+	
+	
 } // class

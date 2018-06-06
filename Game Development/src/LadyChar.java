@@ -25,17 +25,17 @@ public class LadyChar extends Creature{
 	public void update() {
 		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 		// WASD Movement
-		if (KeyTracker.wpressed == true) {
+		if (KeyTracker.spacePressed == true) {
 			if (isJumping == false) {
 				isJumping = true;
 			}
 		} else
-		if (KeyTracker.apressed == true) {
+		if (KeyTracker.aPressed == true) {
 			GameState.ladycharacter.speed = -10;
 		} else
-		if (KeyTracker.spressed == true) {
+		if (KeyTracker.sPressed == true) {
 		} else
-		if (KeyTracker.dpressed == true) {
+		if (KeyTracker.dPressed == true) {
 			GameState.ladycharacter.speed = 10;
 		} else {
 			GameState.ladycharacter.speed = 0;
@@ -43,15 +43,15 @@ public class LadyChar extends Creature{
 		
 		// Jumping Behavior
 		if (isJumping == true) {
-			if (GameState.ladycharacter.jump <= -15) {
-				GameState.ladycharacter.jump = 15;
+			if (GameState.ladycharacter.jumpHeight <= -15) {
+				GameState.ladycharacter.jumpHeight = 15;
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				LocalY -= GameState.ladycharacter.jump;
+				LocalY -= GameState.ladycharacter.jumpHeight;
 			}
-			if (GameState.ladycharacter.jump >-15) {
-				GameState.ladycharacter.jump -= 1;
+			if (GameState.ladycharacter.jumpHeight >-15) {
+				GameState.ladycharacter.jumpHeight -= 1;
 			}
 		}
 		
