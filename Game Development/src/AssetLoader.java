@@ -31,32 +31,24 @@ public class AssetLoader{
     public static BufferedImage warrior = ImageLoader.loadImage("/textures/warrior.png");
     public static BufferedImage dirt = ImageLoader.loadImage("/textures/dirtTile.png");
     public static BufferedImage metal = ImageLoader.loadImage("/textures/metalTile.jpg");
+    public static AudioStream Audio;
     
     //Sounds
     static Main main = new Main();
-    public static void music() throws IOException, URISyntaxException {
+    public static void loadMusic() throws IOException, URISyntaxException {
     	InputStream SMGFire;
     	URL url = main.getClass().getResource("res/sounds/machinegun.wav");
     	SMGFire = new FileInputStream(new File(url.toURI()));
-    	AudioStream Audio = new AudioStream(SMGFire);
-    	AudioPlayer.player.start(Audio);
+    	Audio = new AudioStream(SMGFire);
+    }
+    
+    public static void playMusic() throws IOException, URISyntaxException {
+    	loadMusic();
+		AudioPlayer.player.start(Audio);
     }
     
 	public static void init(){
-		/*int buttonwidth = 445;
-		int buttonheight = 179;
 		
-		SpriteSheet gameUI = new SpriteSheet(ImageLoader.loadImage("res/textures/gameButtons.png"));
-		
-		//Tiles
-		
-		//Entities
-		
-		//Buttons
-		imgstartbtn = gameUI.crop(0, buttonheight, buttonwidth, buttonheight);
-		imgstartbtnhover = gameUI.crop(buttonwidth, buttonheight, buttonwidth, buttonheight);
-		imgendbtn = gameUI.crop(0, 0, buttonwidth, buttonheight);
-		imgendbtnhover = gameUI.crop(buttonwidth, 0, buttonwidth, buttonheight); */
 	}
 
 }

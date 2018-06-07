@@ -42,7 +42,7 @@ public class Player extends Creature{
 			if (isJumping == false) {
 				isJumping = true;
 			}
-		} else
+		}
 		if (KeyTracker.aPressed == true) {
 			GameState.defaultchar.speed = -10;
 		} else
@@ -53,23 +53,29 @@ public class Player extends Creature{
 		} else {
 			GameState.defaultchar.speed = 0;
 		}
+		if (KeyTracker.aPressed == true && KeyTracker.dPressed == true) {
+			GameState.defaultchar.speed = 0;
+		}
 		
 		// Jumping Behavior
 		if (isJumping == true) {
-			/*if (GameState.defaultchar.jumpHeight <= -15) {
+			if (GameState.defaultchar.jumpHeight <= -15) {
 				GameState.defaultchar.jumpHeight = 15;
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				LocalY -= GameState.defaultchar.jumpHeight;
+				//y
+				GlobalY -= GameState.defaultchar.jumpHeight;
+				Main.YOffSet -= GameState.defaultchar.jumpHeight;
+				gunypos = LocalY;
 			}
 			if (GameState.defaultchar.jumpHeight >-15) {
 				GameState.defaultchar.jumpHeight -= 1;
-			} */
+			}
 			
-			this.GlobalY -= this.jumpHeight;
+			/* this.GlobalY -= this.jumpHeight;
 			Main.YOffSet -= this.jumpHeight;
-			isJumping = false;
+			isJumping = false; */
 		}
 		
 		// Left and right image logic
@@ -106,10 +112,8 @@ public class Player extends Creature{
 		gunxpos = LocalX;
 		
 		//y
-		GlobalY += 10;
-		Main.YOffSet += 10;
 		LocalY = GlobalY  - Main.YOffSet;
-		gunypos = LocalY;
+		
 		
 		//Update player's projectile
 		for (Bullets b: Bullets.bulletlist) {

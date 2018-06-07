@@ -10,8 +10,8 @@ public class Tile{
 	public static Tile dirt = new TileDirt(1);
 	public static Tile metal = new TileMetal(2);
 	
-	public static final int TILE_WIDTH = 100,
-							TILE_HEIGHT = 100;
+	public static final int TILE_WIDTH = 80,
+							TILE_HEIGHT = 80;
 	
 	protected BufferedImage texture;
 	protected final int id;

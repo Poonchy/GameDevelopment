@@ -43,6 +43,8 @@ public class Main extends JFrame implements Runnable{
 	public static int XOffSet = 0;
 	public static int YOffSet = 0;
 	
+	//Audio
+	
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.run();
@@ -94,6 +96,9 @@ public class Main extends JFrame implements Runnable{
 	    addKeyListener(keyTracker);
 	    canvas.addMouseListener(mouseTracker); //add mouse listeners to both jframe and canvas so whichever is active or focused mouse will still be tracked
 	    canvas.addMouseMotionListener(mouseTracker);
+	    
+	//Audio
+		AssetLoader.loadMusic();
 	}
 	
 	//Updates variables, sets positions (numbers stuff)
