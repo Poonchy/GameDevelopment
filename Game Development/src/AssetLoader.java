@@ -23,6 +23,8 @@ public class AssetLoader {
     public static BufferedImage mainmenuart = ImageLoader.loadImage("res/textures/menuart.jpg");
     public static BufferedImage leftwarrior = ImageLoader.loadImage("res/textures/warriorleft.png");
     public static BufferedImage warrior = ImageLoader.loadImage("res/textures/warrior.png");
+    public static BufferedImage TestEnemy = ImageLoader.loadImage("res/textures/TestEnemy.PNG");
+    public static BufferedImage TestEnemy2 = ImageLoader.loadImage("res/textures/TestEnemy2.PNG");
     
     
     

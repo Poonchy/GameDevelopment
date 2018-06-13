@@ -6,12 +6,14 @@ public class GameState extends State {
 	static Projectile projectile;
 	static String whichChar;
 	static Warrior warrior;
+	static TestEnemy enemy;
 	
 	public GameState(Main main) {
 		super(main);
 		ladycharacter = new LadyChar(main, 10, main.windowHeight, 100, 100, AssetLoader.lady, 4, 4, -15, 4, 4);
 		defaultchar = new Player(main, 10, main.windowHeight, 100, 100, AssetLoader.capn, 4, 4, -15, 4, 4);
 		warrior = new Warrior(main, 10, main.windowHeight, 100, 100, AssetLoader.warrior, 4, 4, -15, 4, 4);
+		enemy = new TestEnemy(main, 300, main.windowHeight, 100, 100, AssetLoader.TestEnemy, 4, 4, -15, 4, 4);
 	}
 	
 	public void update() {
@@ -22,6 +24,7 @@ public class GameState extends State {
 		} else if (whichChar == "Warrior") {
 			warrior.update();
 		}
+		
 	}
 	
 	public void render(Graphics g) {
@@ -31,6 +34,9 @@ public class GameState extends State {
 			ladycharacter.render(g);
 		} else if (whichChar == "Warrior") {
 			warrior.render(g);
+		}
+		if (true) {
+			enemy.render(g);	
 		}
 	}
 	
