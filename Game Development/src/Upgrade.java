@@ -1,6 +1,6 @@
 
 public abstract class Upgrade {
-
+	
 	Ability upgradedAbility;
 	
 	Upgrade(Ability upgrade) {

@@ -2,8 +2,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Utils {
+public class Utility {
 
+	public static boolean checkCollision(int onexPoS, int oneyPoS, int oneWidth, int oneHeight, int twoxPoS, int twoyPoS, int twoWidth, int twoHeight) {
+		if(((( onexPoS + oneWidth >= twoxPoS)
+				&&(onexPoS  <= (twoxPoS + twoWidth)))
+				&&((oneyPoS + oneHeight >= twoyPoS) 
+				&&(oneyPoS  <= (twoyPoS + twoHeight))))) 
+			{
+				return true;
+			}
+				return false;
+	}
+	
 	public static String loadFileAsString(String path){
 		StringBuilder builder = new StringBuilder();
 		

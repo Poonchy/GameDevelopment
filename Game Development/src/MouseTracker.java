@@ -2,11 +2,14 @@ import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MouseTracker implements MouseListener, MouseMotionListener{
 	int bulletid;
+	int prevX, prevY, mouseXOff, mouseYOff;
 	Bullets bullet;
 	int bulletx = GameState.defaultchar.gunxpos;
 	int bullety;
@@ -25,6 +28,17 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 		}
 			return false;
 	}
+	
+	public void updateCamera() {
+		mouseX = MouseInfo.getPointerInfo().getLocation().x;
+		mouseY = MouseInfo.getPointerInfo().getLocation().y;
+		mouseXOff = (int) ((mouseX - GameState.activePlayer.LocalX + 50) / 8);
+		mouseYOff = (int) ((mouseY - GameState.activePlayer.LocalY + 50) / 4);
+		Main.XOffSet = Main.XOffSet + mouseXOff - prevX;
+		Main.YOffSet = Main.YOffSet + mouseYOff - prevY;
+		prevX = mouseXOff;
+		prevY = mouseYOff;
+	}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
@@ -41,6 +55,9 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 			} else {
 				MenuState.endbtn.imagepath = AssetLoader.imgendbtn;
 			}
+		}
+		if(State.getCurrentState() == Main.gameState) {
+			updateCamera();
 		}
 	}
 
@@ -134,7 +151,6 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 					timer.scheduleAtFixedRate(swingAxe, 0, 1000);
 				}
 			}
-
 		}
 	}
 	
@@ -142,7 +158,13 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 	    public void run() {
 	    	if (!shooting) {
 	    		Bullets.makeBullet(GameState.defaultchar.gunxpos, GameState.defaultchar.gunypos);
-	        }
+	    		try {
+					AssetLoader.playMusic();
+				} catch (IOException | URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	}
 	    	shooting = true;
 	    	Timer timer = new Timer();
 	        timer.schedule(new TimerTask() {
@@ -242,8 +264,9 @@ public class MouseTracker implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if(State.getCurrentState() == Main.gameState) {
+			updateCamera();
+		}
 	}
 	
 	

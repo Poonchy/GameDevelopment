@@ -10,10 +10,10 @@ public class Protection extends Ability {
 	
 	@Override
 	public void update() {
-		if (KeyTracker.onepressed) {
+		if (KeyTracker.onePressed) {
 			if (forcefieldUp == true) {
 			} else {
-				Forcefield.makeForcefield(GameState.ladycharacter.xPos, GameState.ladycharacter.yPos);
+				Forcefield.makeForcefield(GameState.ladycharacter.LocalX, GameState.ladycharacter.LocalY);
 				forcefieldUp = true;
 			}
 		} else {

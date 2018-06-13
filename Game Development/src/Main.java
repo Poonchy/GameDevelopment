@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 
@@ -37,13 +39,19 @@ public class Main extends JFrame implements Runnable{
 	MouseTracker mouseTracker;
 	KeyTracker keyTracker;
 	
+	//Camera
+	public static int XOffSet = 0;
+	public static int YOffSet = 0;
+	
+	//Audio
+	
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.run();
 		System.exit(0);
 	}
 	
-	public void initialize() {
+	public void initialize() throws IOException, URISyntaxException {
 				
 	//Window stuff
 		setTitle("Some Game Thing"); 
@@ -54,7 +62,7 @@ public class Main extends JFrame implements Runnable{
 		setVisible(true);
 		isRunning = true;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image cursorImage = ImageLoader.loadImage("/res/textures/reticle.png");
+		Image cursorImage = ImageLoader.loadImage("/textures/reticle.png");
 		Point cursorHotSpot = new Point(15,15);
 		Cursor customCursor = toolkit.createCustomCursor(cursorImage, cursorHotSpot, "Cursor");
 		setCursor(customCursor);
@@ -88,6 +96,9 @@ public class Main extends JFrame implements Runnable{
 	    addKeyListener(keyTracker);
 	    canvas.addMouseListener(mouseTracker); //add mouse listeners to both jframe and canvas so whichever is active or focused mouse will still be tracked
 	    canvas.addMouseMotionListener(mouseTracker);
+	    
+	//Audio
+		AssetLoader.loadMusic();
 	}
 	
 	//Updates variables, sets positions (numbers stuff)
@@ -117,7 +128,15 @@ public class Main extends JFrame implements Runnable{
 
 	@Override
 	public void run() {
-		initialize();
+		try {
+			initialize();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		long fpsTimer = System.currentTimeMillis();
 		
 		while(isRunning) { // updates, 
@@ -151,4 +170,6 @@ public class Main extends JFrame implements Runnable{
 		}// GAME LOOP 
 		setVisible(false); 
 	} // run
+	
+	
 } // class

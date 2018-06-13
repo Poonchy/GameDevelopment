@@ -13,10 +13,10 @@ public class Player extends Creature{
 	boolean turnedLeft = false;
 	public BufferedImage gunPic;
 	public static Ability grenada;
-	Upgrade grenadaSplit;
-	
-	public Player(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
-		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
+	public static Upgrade grenadaSplit;
+
+	public Player(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		
 		grenada = new Grenada(image, 3000, 4, null);
 		
@@ -29,7 +29,8 @@ public class Player extends Creature{
 		grenadaSplit = new GrenadaSplit();
 		
 		upgrades = new ArrayList<Upgrade>();
-		upgrades.add(grenadaSplit);
+		
+		abilities[0] = grenada;
 		
 	}
 
@@ -37,46 +38,56 @@ public class Player extends Creature{
 	public void update() {
 		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 		// WASD Movement
-		if (KeyTracker.wpressed == true) {
+		if (KeyTracker.spacePressed == true) {
 			if (isJumping == false) {
 				isJumping = true;
 			}
 		}
-		if (KeyTracker.apressed == true) {
-			xPos -= GameState.defaultchar.speed;
-			gunxpos = xPos;
+		if (KeyTracker.aPressed == true) {
+			GameState.defaultchar.speed = -10;
+		} else
+		if (KeyTracker.sPressed == true) {
+		} else
+		if (KeyTracker.dPressed == true) {
+			GameState.defaultchar.speed = 10;
+		} else {
+			GameState.defaultchar.speed = 0;
 		}
-		if (KeyTracker.spressed == true) {
-		}
-		if (KeyTracker.dpressed == true) {
-			xPos += GameState.defaultchar.speed;
-			gunxpos = xPos;
+		if (KeyTracker.aPressed == true && KeyTracker.dPressed == true) {
+			GameState.defaultchar.speed = 0;
 		}
 		
 		// Jumping Behavior
 		if (isJumping == true) {
-			if (GameState.defaultchar.jump <= -15) {
-				GameState.defaultchar.jump = 15;
+			if (GameState.defaultchar.jumpHeight <= -15) {
+				GameState.defaultchar.jumpHeight = 15;
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				yPos -= GameState.defaultchar.jump;
+				//y
+				GlobalY -= GameState.defaultchar.jumpHeight;
+				Main.YOffSet -= GameState.defaultchar.jumpHeight;
+				gunypos = LocalY;
 			}
-			if (GameState.defaultchar.jump >-15) {
-				GameState.defaultchar.jump -= 1;
+			if (GameState.defaultchar.jumpHeight >-15) {
+				GameState.defaultchar.jumpHeight -= 1;
 			}
+			
+			/* this.GlobalY -= this.jumpHeight;
+			Main.YOffSet -= this.jumpHeight;
+			isJumping = false; */
 		}
 		
 		// Left and right image logic
-		if (mouseX - xPos - 50 < 0) {
+		if (mouseX - LocalX - 50 < 0) {
 			turnedLeft = true;
 		} else {
 			turnedLeft = false;
 		}
 		if (turnedLeft == true) {
 			image = AssetLoader.leftcapn;
-			gunxpos = xPos - 70;
-			gunypos = yPos + 40;
+			gunxpos = LocalX - 70;
+			gunypos = LocalY + 40;
 			if (KeyTracker.primaryWeapon) {
 				gunPic = AssetLoader.rocketlauncher;
 			} else {
@@ -84,8 +95,8 @@ public class Player extends Creature{
 			}
 		} else {
 			image = AssetLoader.capn;
-			gunxpos = xPos;
-			gunypos = yPos;
+			gunxpos = LocalX;
+			gunypos = LocalY;
 			if (KeyTracker.primaryWeapon) {
 				gunPic = AssetLoader.rocketlauncher;
 			} else {
@@ -93,6 +104,18 @@ public class Player extends Creature{
 			}
 		}
 		
+		// Global and Local position updates (VERY IMPORTANT)
+		//x
+		GlobalX += GameState.defaultchar.speed;
+		Main.XOffSet += GameState.defaultchar.speed;
+		LocalX = GlobalX  - Main.XOffSet;
+		gunxpos = LocalX;
+		
+		//y
+		LocalY = GlobalY  - Main.YOffSet;
+		
+		
+		//Update player's projectile
 		for (Bullets b: Bullets.bulletlist) {
 			b.update();
 		}
@@ -110,8 +133,8 @@ public class Player extends Creature{
 
 	@Override
 	public void render(Graphics g) {
-		
-		g.drawImage(image, xPos, yPos, width, height, null);
+
+		g.drawImage(image, LocalX, LocalY, width, height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunPic);
 		
 		for (Bullets b: Bullets.bulletlist) {

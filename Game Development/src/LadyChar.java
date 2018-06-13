@@ -14,8 +14,8 @@ public class LadyChar extends Creature{
 	public BufferedImage gunPic;
 	Protection forcefield = new Protection(image, 10000, 1, null);
 	
-	public LadyChar(Main main, int x, int y, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
-		super(main, x, y - 100, width, height, image, health, speed, jump, baseDamage, attackSpeed);
+	public LadyChar(Main main, int LocalX, int LocalY, int GlobalX, int GlobalY, int width, int height, BufferedImage image, int health, int speed, int jump, int baseDamage, int attackSpeed) {
+		super(main, LocalX, LocalY, GlobalX, GlobalY, width, height, image, health, speed, jump, baseDamage, attackSpeed);
 		abilities = new Ability[4];
 		upgrades = new ArrayList<Upgrade>();
 		
@@ -25,46 +25,46 @@ public class LadyChar extends Creature{
 	public void update() {
 		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
 		// WASD Movement
-		if (KeyTracker.wpressed == true) {
+		if (KeyTracker.spacePressed == true) {
 			if (isJumping == false) {
 				isJumping = true;
 			}
-		}
-		if (KeyTracker.apressed == true) {
-			xPos -= GameState.ladycharacter.speed;
-			gunxpos = xPos;
-		}
-		if (KeyTracker.spressed == true) {
-		}
-		if (KeyTracker.dpressed == true) {
-			xPos += GameState.ladycharacter.speed;
-			gunxpos = xPos;
+		} else
+		if (KeyTracker.aPressed == true) {
+			GameState.ladycharacter.speed = -10;
+		} else
+		if (KeyTracker.sPressed == true) {
+		} else
+		if (KeyTracker.dPressed == true) {
+			GameState.ladycharacter.speed = 10;
+		} else {
+			GameState.ladycharacter.speed = 0;
 		}
 		
 		// Jumping Behavior
 		if (isJumping == true) {
-			if (GameState.ladycharacter.jump <= -15) {
-				GameState.ladycharacter.jump = 15;
+			if (GameState.ladycharacter.jumpHeight <= -15) {
+				GameState.ladycharacter.jumpHeight = 15;
 				isJumping = false;
 			}
 			if (isJumping == true) {
-				yPos -= GameState.ladycharacter.jump;
+				LocalY -= GameState.ladycharacter.jumpHeight;
 			}
-			if (GameState.ladycharacter.jump >-15) {
-				GameState.ladycharacter.jump -= 1;
+			if (GameState.ladycharacter.jumpHeight >-15) {
+				GameState.ladycharacter.jumpHeight -= 1;
 			}
 		}
 		
 		// Left and right image logic
-		if (mouseX - xPos - 50 < 0) {
+		if (mouseX - LocalX - 50 < 0) {
 			turnedLeft = true;
 		} else {
 			turnedLeft = false;
 		}
 		if (turnedLeft == true) {
 			image = AssetLoader.leftlady;
-			gunxpos = xPos - 70;
-			gunypos = yPos + 40;
+			gunxpos = LocalX - 70;
+			gunypos = LocalY + 40;
 			if (KeyTracker.primaryWeapon) {
 				gunPic = AssetLoader.shotgun;
 			} else {
@@ -72,8 +72,8 @@ public class LadyChar extends Creature{
 			}
 		} else {
 			image = AssetLoader.lady;
-			gunxpos = xPos;
-			gunypos = yPos;
+			gunxpos = LocalX;
+			gunypos = LocalY;
 			if (KeyTracker.primaryWeapon) {
 				gunPic = AssetLoader.shotgun;
 			} else {
@@ -88,6 +88,11 @@ public class LadyChar extends Creature{
 			g.update();
 		}
 		
+		GlobalX += GameState.ladycharacter.speed;
+		Main.XOffSet += GameState.ladycharacter.speed;
+		LocalX = GlobalX  - Main.XOffSet;
+		gunxpos = LocalX;
+		
 		forcefield.update();
 		
 	}
@@ -95,7 +100,7 @@ public class LadyChar extends Creature{
 	@Override
 	public void render(Graphics g) {
 		
-		g.drawImage(image, xPos, yPos, width, height, null);
+		g.drawImage(image, LocalX, LocalY, width, height, null);
 		ArmRotator.drawNewArm(g, gunxpos + 80, gunypos+30, gunPic);
 		
 		for (Bullets b: Bullets.bulletlist) {
